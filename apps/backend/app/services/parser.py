@@ -6,8 +6,6 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
-from markitdown import MarkItDown
-
 from app.llm import complete_json, get_llm_config, get_model_name, get_safe_max_tokens
 from app.prompts import PARSE_RESUME_PROMPT
 from app.prompts.templates import RESUME_SCHEMA_EXAMPLE
@@ -134,6 +132,8 @@ async def parse_document(content: bytes, filename: str) -> str:
         tmp_path = Path(tmp.name)
 
     try:
+        from markitdown import MarkItDown
+
         md = MarkItDown()
         result = md.convert(str(tmp_path))
         return result.text_content
