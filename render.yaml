@@ -1,0 +1,23 @@
+# Render Blueprint for Resume Matcher
+# Docs: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: resume-matcher
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free # Change to starter/standard for persistent disk support
+    region: oregon # or frankfurt, singapore, ohio, virginia
+    envVars:
+      - key: LLM_PROVIDER
+        value: openai # Supported: openai, gemini, anthropic, deepseek, openrouter, groq, azure_foundry
+      - key: LLM_MODEL
+        sync: false
+      - key: LLM_API_KEY
+        sync: false
+      - key: LOG_LEVEL
+        value: INFO
+      - key: LOG_LLM
+        value: WARNING
+      - key: REQUEST_TIMEOUT_SECONDS
+        value: 240
