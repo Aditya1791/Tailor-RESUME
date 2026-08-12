@@ -111,7 +111,7 @@ Clone the repository and launch the unified container:
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/<your-username>/resume-matcher.git
+git clone https://github.com/Aditya1791/Tailor-RESUME.git
 cd resume-matcher
 
 # 2. Start the container
