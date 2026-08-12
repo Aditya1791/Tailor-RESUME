@@ -730,9 +730,9 @@ class FeatureConfigRequest(BaseModel):
 class FeatureConfigResponse(BaseModel):
     """Response for feature settings."""
 
-    enable_cover_letter: bool = False
-    enable_outreach_message: bool = False
-    enable_interview_prep: bool = False
+    enable_cover_letter: bool = True
+    enable_outreach_message: bool = True
+    enable_interview_prep: bool = True
 
 
 class LanguageConfigRequest(BaseModel):

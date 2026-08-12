@@ -129,7 +129,7 @@ export const ProjectsForm: React.FC<ProjectsFormProps> = ({ data, onChange }) =>
           variant="outline"
           size="sm"
           onClick={handleAdd}
-          className="rounded-none border-black hover:bg-black hover:text-white transition-colors"
+          className="rounded-none border-border hover:bg-muted transition-colors"
         >
           <Plus className="w-4 h-4 mr-2" /> {t('builder.forms.projects.addProject')}
         </Button>
@@ -137,7 +137,7 @@ export const ProjectsForm: React.FC<ProjectsFormProps> = ({ data, onChange }) =>
 
       <div className="space-y-8">
         {data.map((item) => (
-          <div key={item.id} className="p-6 border border-black bg-paper-tint relative group">
+          <div key={item.id} className="p-6 border border-border bg-card relative group text-foreground">
             <Button
               variant="ghost"
               size="icon"
@@ -151,76 +151,76 @@ export const ProjectsForm: React.FC<ProjectsFormProps> = ({ data, onChange }) =>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 pr-8">
               <div className="space-y-2">
-                <Label className="font-mono text-xs uppercase tracking-wider text-steel-grey">
+                <Label className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
                   {t('builder.forms.projects.fields.projectName')}
                 </Label>
                 <Input
                   value={item.name || ''}
                   onChange={(e) => handleChange(item.id, 'name', e.target.value)}
                   placeholder={t('builder.forms.projects.placeholders.projectName')}
-                  className="rounded-none border-black bg-white"
+                  className="rounded-none border-border bg-background text-foreground"
                 />
               </div>
               <div className="space-y-2">
-                <Label className="font-mono text-xs uppercase tracking-wider text-steel-grey">
+                <Label className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
                   {t('builder.forms.projects.fields.role')}
                 </Label>
                 <Input
                   value={item.role || ''}
                   onChange={(e) => handleChange(item.id, 'role', e.target.value)}
                   placeholder={t('builder.forms.projects.placeholders.role')}
-                  className="rounded-none border-black bg-white"
+                  className="rounded-none border-border bg-background text-foreground"
                 />
               </div>
               <div className="space-y-2">
-                <Label className="font-mono text-xs uppercase tracking-wider text-steel-grey">
+                <Label className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
                   {t('builder.genericItemForm.fields.years')}{' '}
-                  <span className="text-steel-grey">({t('common.optional')})</span>
+                  <span className="text-muted-foreground">({t('common.optional')})</span>
                 </Label>
                 <Input
                   value={item.years || ''}
                   onChange={(e) => handleChange(item.id, 'years', e.target.value)}
                   placeholder={t('builder.forms.projects.placeholders.years')}
-                  className="rounded-none border-black bg-white"
+                  className="rounded-none border-border bg-background text-foreground"
                 />
               </div>
               <div className="space-y-2">
-                <Label className="font-mono text-xs uppercase tracking-wider text-steel-grey">
+                <Label className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
                   <Github className="w-3 h-3 inline mr-1" />
-                  GitHub <span className="text-steel-grey">({t('common.optional')})</span>
+                  GitHub <span className="text-muted-foreground">({t('common.optional')})</span>
                 </Label>
                 <Input
                   value={item.github || ''}
                   onChange={(e) => handleChange(item.id, 'github', e.target.value)}
                   placeholder={t('builder.forms.projects.placeholders.github')}
-                  className="rounded-none border-black bg-white"
+                  className="rounded-none border-border bg-background text-foreground"
                 />
               </div>
               <div className="space-y-2 md:col-span-2">
-                <Label className="font-mono text-xs uppercase tracking-wider text-steel-grey">
+                <Label className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
                   <Globe className="w-3 h-3 inline mr-1" />
                   {t('builder.forms.projects.fields.website')}{' '}
-                  <span className="text-steel-grey">({t('common.optional')})</span>
+                  <span className="text-muted-foreground">({t('common.optional')})</span>
                 </Label>
                 <Input
                   value={item.website || ''}
                   onChange={(e) => handleChange(item.id, 'website', e.target.value)}
                   placeholder={t('builder.forms.projects.placeholders.website')}
-                  className="rounded-none border-black bg-white"
+                  className="rounded-none border-border bg-background text-foreground"
                 />
               </div>
             </div>
 
             <div className="space-y-3">
               <div className="flex justify-between items-center">
-                <Label className="font-mono text-xs uppercase tracking-wider text-steel-grey">
+                <Label className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
                   {t('builder.genericItemForm.fields.descriptionPoints')}
                 </Label>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => handleAddDescription(item.id)}
-                  className="h-6 text-xs text-blue-700 hover:text-blue-800 hover:bg-blue-50"
+                  className="h-6 text-xs text-primary hover:text-primary hover:bg-primary/10"
                 >
                   <Plus className="w-3 h-3 mr-1" /> {t('builder.genericItemForm.actions.addPoint')}
                 </Button>
@@ -266,15 +266,15 @@ export const ProjectsForm: React.FC<ProjectsFormProps> = ({ data, onChange }) =>
         ))}
 
         {data.length === 0 && (
-          <div className="text-center py-12 bg-paper-tint border border-dashed border-black">
-            <p className="font-mono text-sm text-steel-grey mb-4">
+          <div className="text-center py-12 bg-muted/40 border border-dashed border-border">
+            <p className="font-mono text-sm text-muted-foreground mb-4">
               {t('builder.genericItemForm.noEntries', { label: t('resume.sections.projects') })}
             </p>
             <Button
               variant="outline"
               size="sm"
               onClick={handleAdd}
-              className="rounded-none border-black"
+              className="rounded-none border-border"
             >
               <Plus className="w-4 h-4 mr-2" /> {t('builder.forms.projects.addFirstProject')}
             </Button>

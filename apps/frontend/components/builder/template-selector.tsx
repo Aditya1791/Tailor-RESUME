@@ -56,8 +56,8 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({ value, onCha
           onClick={() => onChange(template.id)}
           className={`group flex flex-col items-center p-3 border-2 transition-all ${
             value === template.id
-              ? 'border-blue-700 bg-white shadow-[3px_3px_0px_0px_#1D4ED8]'
-              : 'border-black bg-white hover:bg-background hover:shadow-sw-sm'
+              ? 'border-primary bg-primary/10 shadow-sw-xs text-primary'
+              : 'border-border bg-card text-foreground hover:bg-muted hover:shadow-sw-xs'
           }`}
           title={templateLabels[template.id].description}
         >
@@ -69,7 +69,7 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({ value, onCha
           {/* Template Name */}
           <span
             className={`font-mono text-[10px] uppercase tracking-wider font-bold ${
-              value === template.id ? 'text-blue-700' : 'text-ink-soft'
+              value === template.id ? 'text-primary' : 'text-foreground'
             }`}
           >
             {templateLabels[template.id].name}

@@ -87,12 +87,12 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
 
   return (
     <div
-      className={`space-y-0 border p-6 bg-white shadow-sw-default ${
-        isHidden ? 'border-dashed border-steel-grey opacity-60' : 'border-black'
+      className={`space-y-0 border p-6 bg-card text-foreground shadow-sw-default ${
+        isHidden ? 'border-dashed border-muted opacity-60' : 'border-border'
       }`}
     >
       {/* Section Header */}
-      <div className="flex justify-between items-center border-b border-black pb-2 mb-4">
+      <div className="flex justify-between items-center border-b border-border pb-2 mb-4">
         {/* Section Name (editable) */}
         <div className="flex items-center gap-2">
           {isEditing ? (
@@ -101,13 +101,13 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
                 value={editedName}
                 onChange={(e) => setEditedName(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className="h-8 w-48 rounded-none border-black font-serif text-lg font-bold"
+                className="h-8 w-48 rounded-none border-border bg-card text-foreground font-serif text-lg font-bold"
                 autoFocus
               />
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8 text-green-700 hover:text-green-800 hover:bg-green-50"
+                className="h-8 w-8 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-500/10"
                 onClick={handleSaveEdit}
                 aria-label={t('common.save')}
                 title={t('common.save')}
@@ -117,7 +117,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8 text-steel-grey hover:text-ink-soft hover:bg-paper-tint"
+                className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted"
                 onClick={handleCancelEdit}
                 aria-label={t('common.cancel')}
                 title={t('common.cancel')}
@@ -132,12 +132,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
                 <Button
                   variant="ghost"
                   size="icon"
-                  // Visible 24×24 (matches the small inline pencil aesthetic
-                  // next to the section title), but the touch area is
-                  // extended to 44×44 via -inset-[10px] to meet WCAG 2.5.8.
-                  // The default Button overlay (-inset-1.5) only gives 36×36
-                  // for h-6 buttons; this override adds 4 more px per side.
-                  className="h-6 w-6 text-steel-grey hover:text-ink-soft before:-inset-[10px]"
+                  className="h-6 w-6 text-muted-foreground hover:text-foreground before:-inset-[10px]"
                   onClick={handleStartEdit}
                   aria-label={t('builder.sectionHeader.renameSection')}
                   title={t('builder.sectionHeader.renameSection')}
@@ -146,12 +141,12 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
                 </Button>
               )}
               {!section.isDefault && (
-                <span className="font-mono text-[10px] uppercase tracking-wider text-steel-grey bg-paper-tint px-1.5 py-0.5 border border-paper-tint">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground bg-muted px-1.5 py-0.5 border border-border">
                   {t('builder.sectionHeader.customTag')}
                 </span>
               )}
               {isHidden && (
-                <span className="font-mono text-[10px] uppercase tracking-wider text-orange-600 bg-white px-1.5 py-0.5 border border-orange-500">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-amber-500 bg-amber-500/10 px-1.5 py-0.5 border border-amber-500/30">
                   {t('builder.sectionHeader.hiddenFromPdfTag')}
                 </span>
               )}

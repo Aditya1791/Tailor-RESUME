@@ -36,32 +36,6 @@ export function GeneratePrompt({
       ? t('outreach.title')
       : t('coverLetter.title');
 
-  // Show a different message if resume is not tailored
-  if (!isTailoredResume) {
-    return (
-      <div
-        className={cn(
-          'flex flex-col items-center justify-center min-h-[400px] p-12 text-center',
-          className
-        )}
-      >
-        <div className="w-16 h-16 border-2 border-steel-grey bg-paper-tint flex items-center justify-center mb-6">
-          <Icon className="w-8 h-8 text-steel-grey" />
-        </div>
-        <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-ink-soft mb-3">
-          {t('builder.generatePrompt.notAvailableTitle', { title })}
-        </h3>
-        <p className="font-mono text-xs text-steel-grey max-w-md mb-6 leading-relaxed">
-          {t('builder.generatePrompt.notAvailableDescription', { title })}
-        </p>
-        <div className="flex items-center gap-2 text-blue-700 font-mono text-xs">
-          <span>{t('builder.generatePrompt.goToDashboard')}</span>
-          <ArrowRight className="w-4 h-4" />
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div
       className={cn(
@@ -69,13 +43,13 @@ export function GeneratePrompt({
         className
       )}
     >
-      <div className="w-16 h-16 border-2 border-blue-700 bg-blue-50 flex items-center justify-center mb-6">
-        <Icon className="w-8 h-8 text-blue-700" />
+      <div className="w-16 h-16 border-2 border-primary bg-primary/10 flex items-center justify-center mb-6">
+        <Icon className="w-8 h-8 text-primary" />
       </div>
-      <h3 className="font-mono text-sm font-bold uppercase tracking-wider mb-3">
+      <h3 className="font-mono text-sm font-bold uppercase tracking-wider mb-3 text-foreground">
         {t('builder.generatePrompt.generateTitle', { title })}
       </h3>
-      <p className="font-mono text-xs text-ink-soft max-w-md mb-6 leading-relaxed">
+      <p className="font-mono text-xs text-muted-foreground max-w-md mb-6 leading-relaxed">
         {isInterviewPrep
           ? t('builder.generatePrompt.interviewPrepDescription')
           : isOutreach
@@ -95,7 +69,7 @@ export function GeneratePrompt({
           </>
         )}
       </Button>
-      <p className="font-mono text-xs text-steel-grey mt-4">
+      <p className="font-mono text-xs text-muted-foreground mt-4">
         {isInterviewPrep
           ? t('builder.generatePrompt.interviewPrepFooter')
           : isOutreach

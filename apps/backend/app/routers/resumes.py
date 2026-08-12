@@ -1130,9 +1130,9 @@ async def improve_resume_confirm_endpoint(
         raise HTTPException(status_code=404, detail="Job description not found")
 
     feature_config = _load_config()
-    enable_cover_letter = feature_config.get("enable_cover_letter", False)
-    enable_outreach = feature_config.get("enable_outreach_message", False)
-    enable_interview_prep = feature_config.get("enable_interview_prep", False)
+    enable_cover_letter = feature_config.get("enable_cover_letter", True)
+    enable_outreach = feature_config.get("enable_outreach_message", True)
+    enable_interview_prep = feature_config.get("enable_interview_prep", True)
     language = get_content_language()
 
     stage = "serialize_improved_data"
@@ -1287,9 +1287,9 @@ async def improve_resume_endpoint(
 
     # Load feature configuration and content language
     feature_config = _load_config()
-    enable_cover_letter = feature_config.get("enable_cover_letter", False)
-    enable_outreach = feature_config.get("enable_outreach_message", False)
-    enable_interview_prep = feature_config.get("enable_interview_prep", False)
+    enable_cover_letter = feature_config.get("enable_cover_letter", True)
+    enable_outreach = feature_config.get("enable_outreach_message", True)
+    enable_interview_prep = feature_config.get("enable_interview_prep", True)
     language = get_content_language()
 
     try:

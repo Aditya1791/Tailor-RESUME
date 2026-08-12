@@ -1064,19 +1064,19 @@ const ResumeBuilderContent = () => {
   // Swiss tokens rather than raw Tailwind palette classes, matching the tone
   // set used by StatCard in diff-preview-modal.tsx (L-09).
   const resumeSaveStatusStyles = {
-    amber: 'border-warning bg-[#FFF7ED] text-warning',
-    blue: 'border-primary bg-[#EFF6FF] text-primary',
-    green: 'border-success bg-[#F0FDF4] text-success',
-    red: 'border-destructive bg-[#FEF2F2] text-destructive',
+    amber: 'border-warning bg-warning/10 text-warning',
+    blue: 'border-primary bg-primary/10 text-primary',
+    green: 'border-success bg-success/10 text-success',
+    red: 'border-destructive bg-destructive/10 text-destructive',
   };
   const ResumeSaveStatusIcon = resumeSaveStatus?.tone === 'green' ? Check : AlertTriangle;
 
   return (
     <div className="h-screen w-full bg-background flex justify-center items-center p-4 md:p-8">
       {/* Main Container */}
-      <div className="w-full h-full max-w-[90%] md:max-w-[95%] xl:max-w-[1800px] border border-black bg-background shadow-sw-lg flex flex-col">
+      <div className="w-full h-full max-w-[90%] md:max-w-[95%] xl:max-w-[1800px] border border-border bg-background shadow-sw-lg flex flex-col">
         {/* Header Section */}
-        <div className="border-b border-black p-6 md:p-8 bg-background no-print">
+        <div className="border-b border-border p-6 md:p-8 bg-background no-print">
           {/* Top Row: Back button and Actions */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
             <div>
@@ -1084,11 +1084,11 @@ const ResumeBuilderContent = () => {
                 <ArrowLeft className="w-4 h-4" />
                 {t('nav.backToDashboard')}
               </Button>
-              <h1 className="font-serif text-3xl md:text-5xl text-black tracking-tight leading-[0.95] uppercase">
+              <h1 className="font-serif text-3xl md:text-5xl text-foreground tracking-tight leading-[0.95] uppercase">
                 {t('nav.builder')}
               </h1>
               <div className="mt-3 flex items-center gap-3">
-                <p className="text-sm font-mono text-blue-700 uppercase tracking-wide font-bold">
+                <p className="text-sm font-mono text-primary uppercase tracking-wide font-bold">
                   {'// '}
                   {resumeId ? t('builder.editMode') : t('builder.createAndPreview')}
                 </p>
@@ -1117,36 +1117,40 @@ const ResumeBuilderContent = () => {
                     {t('builder.regenerate.buttonLabel')}
                   </Button>
                   <Button
-                    variant="warning"
+                    variant="outline"
                     size="sm"
                     onClick={handleReset}
-                    disabled={!hasUnsavedChanges}
+                    disabled={!resumeId || isSaving}
                   >
                     <RotateCcw className="w-4 h-4" />
-                    {t('common.reset')}
+                    {t('builder.resetToOriginal')}
                   </Button>
                   <Button
+                    variant="outline"
                     size="sm"
                     onClick={handleSave}
-                    disabled={!resumeId || isSaving || loadingState !== 'loaded'}
+                    disabled={isSaving || isAutoSaving || loadingState !== 'loaded'}
                   >
                     <Save className="w-4 h-4" />
-                    {isSaving
-                      ? t('common.saving')
-                      : autoSaveError
-                        ? t('builder.autoSave.retrySave')
-                        : hasUnsavedChanges
-                          ? t('builder.autoSave.saveNow')
-                          : t('builder.autoSave.savedButton')}
+                    {t('common.save')}
                   </Button>
                   <Button
-                    variant="success"
                     size="sm"
                     onClick={handleDownload}
-                    disabled={!resumeId || isDownloading}
+                    disabled={isDownloading}
+                    className="gap-2"
                   >
-                    <Download className="w-4 h-4" />
-                    {isDownloading ? t('common.generating') : t('common.download')}
+                    {isDownloading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        {t('common.downloadingPdf')}
+                      </>
+                    ) : (
+                      <>
+                        <Download className="w-4 h-4" />
+                        {t('common.downloadPdf')}
+                      </>
+                    )}
                   </Button>
                 </>
               )}
@@ -1168,51 +1172,45 @@ const ResumeBuilderContent = () => {
                     {t('coverLetter.regenerate')}
                   </Button>
                   <Button
-                    variant="success"
                     size="sm"
                     onClick={handleDownloadCoverLetter}
-                    disabled={!resumeId || isDownloading}
+                    disabled={isDownloading}
+                    className="gap-2"
                   >
-                    <Download className="w-4 h-4" />
-                    {isDownloading ? t('common.generating') : t('common.download')}
+                    {isDownloading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        {t('common.downloadingPdf')}
+                      </>
+                    ) : (
+                      <>
+                        <Download className="w-4 h-4" />
+                        {t('common.downloadPdf')}
+                      </>
+                    )}
                   </Button>
                 </>
               )}
 
               {/* Outreach tab actions */}
               {activeTab === 'outreach' && outreachMessage && (
-                <>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleGenerateOutreach}
-                    disabled={isGeneratingOutreach}
-                  >
-                    {isGeneratingOutreach ? (
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                    ) : (
-                      <Sparkles className="w-4 h-4" />
-                    )}
-                    {t('outreach.regenerate')}
-                  </Button>
-                  <Button variant="success" size="sm" onClick={handleCopyOutreach}>
-                    {isCopied ? (
-                      <>
-                        <Check className="w-4 h-4" />
-                        {t('outreach.copied')}
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="w-4 h-4" />
-                        {t('outreach.copyToClipboard')}
-                      </>
-                    )}
-                  </Button>
-                </>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleGenerateOutreach}
+                  disabled={isGeneratingOutreach}
+                >
+                  {isGeneratingOutreach ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Sparkles className="w-4 h-4" />
+                  )}
+                  {t('outreach.regenerate')}
+                </Button>
               )}
 
               {/* Interview prep tab actions */}
-              {activeTab === 'interview-prep' && interviewPrep && (
+              {activeTab === 'interview-prep' && (
                 <Button
                   variant="outline"
                   size="sm"
@@ -1232,13 +1230,13 @@ const ResumeBuilderContent = () => {
         </div>
 
         {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 bg-black gap-[1px] flex-1 min-h-0">
+        <div className="grid grid-cols-1 lg:grid-cols-2 bg-border gap-[1px] flex-1 min-h-0">
           {/* Left Panel: Editor */}
           <div className="bg-background p-6 md:p-8 overflow-y-auto no-print">
             <div className="max-w-3xl mx-auto space-y-6">
-              <div className="flex items-center gap-2 border-b-2 border-black pb-2">
-                <div className="w-3 h-3 bg-blue-700"></div>
-                <h2 className="font-mono text-lg font-bold uppercase tracking-wider">
+              <div className="flex items-center gap-2 border-b-2 border-border pb-2">
+                <div className="w-3 h-3 bg-primary"></div>
+                <h2 className="font-mono text-lg font-bold uppercase tracking-wider text-foreground">
                   {activeTab === 'resume' && t('builder.leftPanel.editorPanel')}
                   {activeTab === 'cover-letter' && t('builder.leftPanel.coverLetterEditor')}
                   {activeTab === 'outreach' && t('builder.leftPanel.outreachEditor')}
@@ -1252,7 +1250,7 @@ const ResumeBuilderContent = () => {
                 (loadingState === 'error' ? (
                   <div
                     role="alert"
-                    className="border border-destructive bg-[#FEF2F2] p-4 font-mono text-xs text-destructive"
+                    className="border border-destructive bg-destructive/10 p-4 font-mono text-xs text-destructive"
                   >
                     {t('builder.alerts.loadFailed')}
                   </div>
@@ -1319,20 +1317,20 @@ const ResumeBuilderContent = () => {
               {/* JD Match Info Panel */}
               {activeTab === 'jd-match' && (
                 <div className="space-y-4">
-                  <div className="border-2 border-black bg-white p-4">
+                  <div className="border-2 border-border bg-card p-4 text-foreground">
                     <h3 className="font-mono text-sm font-bold uppercase mb-2">
                       {t('builder.jdMatch.aboutTitle')}
                     </h3>
-                    <p className="text-sm text-ink-soft leading-relaxed">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
                       {t('builder.jdMatch.aboutDescription')}
                     </p>
                   </div>
 
-                  <div className="border-2 border-black bg-background p-4">
+                  <div className="border-2 border-border bg-card p-4 text-foreground">
                     <h3 className="font-mono text-sm font-bold uppercase mb-2">
                       {t('builder.jdMatch.highlightedKeywordsTitle')}
                     </h3>
-                    <p className="text-sm text-ink-soft leading-relaxed">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
                       {(() => {
                         const template = t(
                           'builder.jdMatch.highlightedKeywordsDescriptionTemplate'
@@ -1342,7 +1340,7 @@ const ResumeBuilderContent = () => {
                         return (
                           <>
                             {parts[0]}
-                            <mark className="bg-yellow-200 px-1">
+                            <mark className="bg-amber-300 dark:bg-amber-400 text-black px-1 font-semibold">
                               {t('builder.jdMatch.highlightColor')}
                             </mark>
                             {parts.slice(1).join('__COLOR__')}
@@ -1352,11 +1350,11 @@ const ResumeBuilderContent = () => {
                     </p>
                   </div>
 
-                  <div className="border-2 border-black bg-white p-4">
+                  <div className="border-2 border-border bg-card p-4 text-foreground">
                     <h3 className="font-mono text-sm font-bold uppercase mb-2">
                       {t('builder.jdMatch.tipsTitle')}
                     </h3>
-                    <ul className="text-sm text-ink-soft space-y-1 list-disc list-inside">
+                    <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
                       <li>{t('builder.jdMatch.tips.items.addMissingKeywords')}</li>
                       <li>{t('builder.jdMatch.tips.items.focusTechnicalSkills')}</li>
                       <li>{t('builder.jdMatch.tips.items.matchActionVerbs')}</li>
@@ -1377,22 +1375,18 @@ const ResumeBuilderContent = () => {
                   {
                     id: 'cover-letter',
                     label: t('builder.previewTabs.coverLetter'),
-                    disabled: !coverLetter,
                   },
                   {
                     id: 'outreach',
                     label: t('builder.previewTabs.outreach'),
-                    disabled: !outreachMessage,
                   },
                   {
                     id: 'interview-prep',
                     label: t('builder.previewTabs.interviewPrep'),
-                    disabled: !isTailoredResume,
                   },
                   {
                     id: 'jd-match',
                     label: t('builder.previewTabs.jdMatch'),
-                    disabled: !jobDescription,
                   },
                 ]}
                 activeTab={activeTab}
@@ -1429,7 +1423,7 @@ const ResumeBuilderContent = () => {
                   />
                 ))}
 
-              {/* Outreach Preview */}
+              {/* Outreach Message Preview */}
               {activeTab === 'outreach' &&
                 (outreachMessage ? (
                   <div className="p-6">
@@ -1444,7 +1438,7 @@ const ResumeBuilderContent = () => {
                   />
                 ))}
 
-              {/* Interview Prep Preview */}
+              {/* Interview Prep */}
               {activeTab === 'interview-prep' && (
                 <InterviewPrepView
                   interviewPrep={interviewPrep}
@@ -1457,16 +1451,25 @@ const ResumeBuilderContent = () => {
                 />
               )}
 
-              {/* JD Match Comparison */}
-              {activeTab === 'jd-match' && jobDescription && (
-                <JDComparisonView jobDescription={jobDescription} resumeData={resumeData} />
+              {/* JD Match View */}
+              {activeTab === 'jd-match' && (
+                jobDescription ? (
+                  <JDComparisonView
+                    jobDescription={jobDescription}
+                    resumeData={resumeData}
+                  />
+                ) : (
+                  <div className="p-12 text-center text-muted-foreground font-mono text-sm">
+                    {t('builder.jdMatch.aboutDescription')}
+                  </div>
+                )
               )}
             </div>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="p-4 bg-background flex justify-between items-center font-mono text-xs text-blue-700 border-t border-black no-print">
+        <div className="p-4 bg-background flex justify-between items-center font-mono text-xs text-primary border-t border-border no-print">
           <span className="uppercase font-bold flex items-center gap-2">
             <Image
               src="/logo.svg"

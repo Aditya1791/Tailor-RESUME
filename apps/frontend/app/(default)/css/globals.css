@@ -38,29 +38,24 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Swiss Style brand tokens. --color-primary, --color-destructive,
-     --color-secondary, --color-background already exist above via the
-     legacy var(--xxx) chain — these are only the additional brand
-     semantics that didn't exist as @theme tokens before. */
-  --color-canvas: #f0f0e8;
-  --color-ink: #000000;
-  --color-success: #15803d;
-  --color-warning: #f97316;
+  /* Swiss Style brand tokens */
+  --color-canvas: var(--canvas);
+  --color-ink: var(--ink);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
 
-  /* Brand-tinted neutrals (OKLCH, chroma tinted ~0.005-0.018 toward
-     Hyper Blue hue 264) — replace ad-hoc Tailwind grays. */
-  --color-paper-tint: oklch(96% 0.005 264); /* replaces gray-50/100/200 */
-  --color-steel-grey: oklch(64% 0.012 264); /* replaces gray-300/400/500 */
-  --color-ink-soft: oklch(38% 0.018 264); /* replaces gray-600/700/800/900 */
+  /* Brand-tinted neutrals */
+  --color-paper-tint: var(--paper-tint);
+  --color-steel-grey: var(--steel-grey);
+  --color-ink-soft: var(--ink-soft);
 
-  /* Hard offset shadows in solid ink — Swiss style commits to no blur.
-     Sized small (1px) through xl (12px) for Hero/featured surfaces. */
-  --shadow-sw-xs: 1px 1px 0px 0px #000000;
-  --shadow-sw-sm: 2px 2px 0px 0px #000000;
-  --shadow-sw-default: 4px 4px 0px 0px #000000;
-  --shadow-sw-card: 6px 6px 0px 0px #000000;
-  --shadow-sw-lg: 8px 8px 0px 0px #000000;
-  --shadow-sw-xl: 12px 12px 0px 0px #000000;
+  /* Hard offset shadows in solid ink */
+  --shadow-sw-xs: var(--shadow-sw-xs);
+  --shadow-sw-sm: var(--shadow-sw-sm);
+  --shadow-sw-default: var(--shadow-sw-default);
+  --shadow-sw-card: var(--shadow-sw-card);
+  --shadow-sw-lg: var(--shadow-sw-lg);
+  --shadow-sw-xl: var(--shadow-sw-xl);
 
   /* Fonts */
   --font-sans: 'Geist Sans', sans-serif;
@@ -84,14 +79,14 @@
   --font-noto-sans-jp: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
   --font-noto-sans-kr: 'Noto Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
 
-  /* Swiss International Style Palette */
+  /* Swiss International Style Palette (Light) */
   --background: #f0f0e8; /* Canvas */
   --foreground: #000000; /* Ink */
 
-  --card: #f0f0e8;
+  --card: #ffffff;
   --card-foreground: #000000;
 
-  --popover: #f0f0e8;
+  --popover: #ffffff;
   --popover-foreground: #000000;
 
   --primary: #1d4ed8; /* Hyper Blue */
@@ -110,8 +105,16 @@
   --destructive-foreground: #ffffff;
 
   --border: #000000;
-  --input: #f0f0e8;
+  --input: #ffffff;
   --ring: #1d4ed8;
+
+  --canvas: #f0f0e8;
+  --ink: #000000;
+  --paper-tint: #f5f5f0;
+  --steel-grey: #6b7280;
+  --ink-soft: #374151;
+  --success: #15803d;
+  --warning: #f97316;
 
   --chart-1: #1d4ed8;
   --chart-2: #15803d;
@@ -127,9 +130,17 @@
   --sidebar-accent-foreground: #000000;
   --sidebar-border: #000000;
   --sidebar-ring: #1d4ed8;
+
+  --shadow-sw-xs: 1px 1px 0px 0px #000000;
+  --shadow-sw-sm: 2px 2px 0px 0px #000000;
+  --shadow-sw-default: 4px 4px 0px 0px #000000;
+  --shadow-sw-card: 6px 6px 0px 0px #000000;
+  --shadow-sw-lg: 8px 8px 0px 0px #000000;
+  --shadow-sw-xl: 12px 12px 0px 0px #000000;
 }
 
 .dark {
+  /* Swiss International Style Palette (Dark) */
   --background: #090d16;
   --foreground: #f8fafc;
 
@@ -158,6 +169,14 @@
   --input: #1e293b;
   --ring: #3b82f6;
 
+  --canvas: #090d16;
+  --ink: #f8fafc;
+  --paper-tint: #1e293b;
+  --steel-grey: #94a3b8;
+  --ink-soft: #cbd5e1;
+  --success: #10b981;
+  --warning: #f59e0b;
+
   --chart-1: #3b82f6;
   --chart-2: #10b981;
   --chart-3: #f59e0b;
@@ -173,10 +192,6 @@
   --sidebar-border: #334155;
   --sidebar-ring: #3b82f6;
 
-  --color-canvas: #090d16;
-  --color-ink: #f8fafc;
-  --color-steel-grey: #64748b;
-  --color-ink-soft: #cbd5e1;
   --shadow-sw-xs: 1px 1px 0px 0px #334155;
   --shadow-sw-sm: 2px 2px 0px 0px #334155;
   --shadow-sw-default: 4px 4px 0px 0px #334155;

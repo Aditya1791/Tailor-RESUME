@@ -33,7 +33,7 @@ export const RetroTabs: React.FC<RetroTabsProps> = ({
   className,
 }) => {
   return (
-    <div className={cn('flex gap-0 border-b border-black', className)}>
+    <div className={cn('flex gap-0 border-b border-border overflow-x-auto', className)}>
       {tabs.map((tab) => {
         const isActive = activeTab === tab.id;
         const isDisabled = tab.disabled;
@@ -44,17 +44,19 @@ export const RetroTabs: React.FC<RetroTabsProps> = ({
             onClick={() => !isDisabled && onTabChange(tab.id)}
             disabled={isDisabled}
             className={cn(
-              'px-4 py-2 font-mono text-xs uppercase tracking-wider transition-all',
-              'border border-b-0 border-black -mb-px',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2',
+              'px-4 py-2 font-mono text-xs uppercase tracking-wider transition-all whitespace-nowrap',
+              'border border-b-0 border-border -mb-px',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
               isActive && [
-                'bg-white text-black font-bold',
-                'shadow-[2px_-2px_0px_0px_rgba(0,0,0,0.1)]',
-                'border-b-white',
+                'bg-card text-foreground font-bold border-border',
+                'shadow-sw-sm',
+                'border-b-card',
               ],
               !isActive &&
-                !isDisabled && ['bg-secondary text-ink-soft hover:bg-[#D8D8D2] hover:text-black'],
-              isDisabled && ['bg-paper-tint text-steel-grey cursor-not-allowed opacity-50']
+                !isDisabled && [
+                  'bg-muted/70 text-muted-foreground hover:bg-muted hover:text-foreground',
+                ],
+              isDisabled && ['bg-muted/30 text-muted-foreground/40 cursor-not-allowed opacity-50']
             )}
           >
             {tab.label}

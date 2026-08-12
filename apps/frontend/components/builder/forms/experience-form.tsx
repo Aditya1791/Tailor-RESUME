@@ -169,22 +169,22 @@ export const ExperienceForm: React.FC<ExperienceFormProps> = ({ data, onChange }
           variant="outline"
           size="sm"
           onClick={handleAdd}
-          className="rounded-none border-black hover:bg-black hover:text-white transition-colors"
+          className="rounded-none border-border hover:bg-muted transition-colors"
         >
           <Plus className="w-4 h-4 mr-2" /> {t('builder.forms.experience.addJob')}
         </Button>
       </div>
 
       {data.length === 0 ? (
-        <div className="text-center py-12 bg-paper-tint border border-dashed border-black">
-          <p className="font-mono text-sm text-steel-grey mb-4">
+        <div className="text-center py-12 bg-muted/40 border border-dashed border-border">
+          <p className="font-mono text-sm text-muted-foreground mb-4">
             {t('builder.genericItemForm.noEntries', { label: t('resume.sections.experience') })}
           </p>
           <Button
             variant="outline"
             size="sm"
             onClick={handleAdd}
-            className="rounded-none border-black"
+            className="rounded-none border-border"
           >
             <Plus className="w-4 h-4 mr-2" /> {t('builder.forms.experience.addFirstJob')}
           </Button>
@@ -203,7 +203,7 @@ export const ExperienceForm: React.FC<ExperienceFormProps> = ({ data, onChange }
             <div className="space-y-8">
               {data.map((item) => (
                 <DraggableListItem key={item.id} id={item.id}>
-                  <div className="p-6 border border-black bg-paper-tint relative group">
+                  <div className="p-6 border border-border bg-card relative group text-foreground">
                     <Button
                       variant="ghost"
                       size="icon"
@@ -217,61 +217,61 @@ export const ExperienceForm: React.FC<ExperienceFormProps> = ({ data, onChange }
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 pr-8">
                       <div className="space-y-2">
-                        <Label className="font-mono text-xs uppercase tracking-wider text-steel-grey">
+                        <Label className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
                           {t('builder.forms.experience.fields.jobTitle')}
                         </Label>
                         <Input
                           value={item.title || ''}
                           onChange={(e) => handleChange(item.id, 'title', e.target.value)}
                           placeholder={t('builder.forms.experience.placeholders.jobTitle')}
-                          className="rounded-none border-black bg-white"
+                          className="rounded-none border-border bg-background text-foreground"
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label className="font-mono text-xs uppercase tracking-wider text-steel-grey">
+                        <Label className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
                           {t('builder.forms.experience.fields.company')}
                         </Label>
                         <Input
                           value={item.company || ''}
                           onChange={(e) => handleChange(item.id, 'company', e.target.value)}
                           placeholder={t('builder.forms.experience.placeholders.company')}
-                          className="rounded-none border-black bg-white"
+                          className="rounded-none border-border bg-background text-foreground"
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label className="font-mono text-xs uppercase tracking-wider text-steel-grey">
+                        <Label className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
                           {t('builder.genericItemForm.fields.location')}
                         </Label>
                         <Input
                           value={item.location || ''}
                           onChange={(e) => handleChange(item.id, 'location', e.target.value)}
                           placeholder={t('builder.forms.experience.placeholders.location')}
-                          className="rounded-none border-black bg-white"
+                          className="rounded-none border-border bg-background text-foreground"
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label className="font-mono text-xs uppercase tracking-wider text-steel-grey">
+                        <Label className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
                           {t('builder.genericItemForm.fields.years')}
                         </Label>
                         <Input
                           value={item.years || ''}
                           onChange={(e) => handleChange(item.id, 'years', e.target.value)}
                           placeholder={t('builder.forms.experience.placeholders.years')}
-                          className="rounded-none border-black bg-white"
+                          className="rounded-none border-border bg-background text-foreground"
                         />
                       </div>
                     </div>
 
                     <div className="space-y-3">
                       <div className="flex justify-between items-center">
-                        <Label className="font-mono text-xs uppercase tracking-wider text-steel-grey">
+                        <Label className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
                           {t('builder.genericItemForm.fields.descriptionPoints')}
                         </Label>
                         <Button
                           variant="ghost"
                           size="sm"
                           onClick={() => handleAddDescription(item.id)}
-                          className="h-6 text-xs text-blue-700 hover:text-blue-800 hover:bg-blue-50"
+                          className="h-6 text-xs text-primary hover:text-primary hover:bg-primary/10"
                         >
                           <Plus className="w-3 h-3 mr-1" />{' '}
                           {t('builder.genericItemForm.actions.addPoint')}

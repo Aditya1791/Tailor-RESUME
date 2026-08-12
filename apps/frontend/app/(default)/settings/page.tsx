@@ -81,9 +81,9 @@ const PROVIDERS: LLMProvider[] = [
 ];
 
 const SEGMENTED_BUTTON_BASE =
-  'border border-black font-mono transition-all duration-150 ease-out shadow-sw-sm hover:translate-y-[1px] hover:translate-x-[1px] hover:shadow-none disabled:cursor-not-allowed disabled:opacity-50';
-const SEGMENTED_BUTTON_ACTIVE = 'bg-blue-700 text-white border-black hover:bg-blue-800';
-const SEGMENTED_BUTTON_INACTIVE = 'bg-white text-black hover:bg-secondary';
+  'border border-border font-mono transition-all duration-150 ease-out shadow-sw-sm hover:translate-y-[1px] hover:translate-x-[1px] hover:shadow-none disabled:cursor-not-allowed disabled:opacity-50';
+const SEGMENTED_BUTTON_ACTIVE = 'bg-primary text-primary-foreground border-border hover:bg-primary/90';
+const SEGMENTED_BUTTON_INACTIVE = 'bg-card text-foreground hover:bg-muted';
 
 const unwrapCodeBlock = (value?: string | null): string | null => {
   if (!value) return null;

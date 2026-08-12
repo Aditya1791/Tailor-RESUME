@@ -48,7 +48,7 @@ export function OutreachEditor({
   return (
     <div className={cn('flex flex-col h-full', className)}>
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b-2 border-black bg-[#F5F5F0]">
+      <div className="flex items-center justify-between p-4 border-b-2 border-border bg-secondary text-foreground">
         <div className="flex items-center gap-2">
           <Mail className="w-4 h-4" />
           <h2 className="font-mono text-sm font-bold uppercase tracking-wider">
@@ -56,7 +56,7 @@ export function OutreachEditor({
           </h2>
         </div>
         <div className="flex items-center gap-3">
-          <span className="font-mono text-xs text-steel-grey">
+          <span className="font-mono text-xs text-muted-foreground">
             {t('builder.contentStats.wordsChars', { wordCount, charCount })}
           </span>
           <Button size="sm" variant="outline" onClick={onSave} disabled={isSaving}>
@@ -88,17 +88,17 @@ export function OutreachEditor({
           className={cn(
             'w-full h-full min-h-[250px] p-4',
             'font-mono text-sm leading-relaxed',
-            'border-2 border-black bg-white',
+            'border-2 border-border bg-card text-foreground',
             'resize-none',
-            'focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2',
-            'placeholder:text-steel-grey'
+            'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
+            'placeholder:text-muted-foreground'
           )}
         />
       </div>
 
       {/* Footer Tips */}
-      <div className="p-4 border-t border-paper-tint bg-[#F5F5F0]">
-        <p className="font-mono text-xs text-steel-grey">{t('outreach.editor.tip')}</p>
+      <div className="p-4 border-t border-border bg-secondary text-muted-foreground">
+        <p className="font-mono text-xs">{t('outreach.editor.tip')}</p>
       </div>
     </div>
   );
