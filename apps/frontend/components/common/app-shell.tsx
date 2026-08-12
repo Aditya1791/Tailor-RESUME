@@ -21,10 +21,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <div className="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-200">
                 <Navbar onOpenCommandPalette={() => setCommandPaletteOpen(true)} />
                 <main className="flex-1 flex flex-col">{children}</main>
-                <CommandPalette
-                  open={commandPaletteOpen}
-                  onOpenChange={setCommandPaletteOpen}
-                />
+                <CommandPalette open={commandPaletteOpen} onOpenChange={setCommandPaletteOpen} />
               </div>
             </LocalizedErrorBoundary>
           </ResumePreviewProvider>

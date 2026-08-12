@@ -25,7 +25,9 @@ const SUB_SCORE_LABELS: Record<string, string> = {
 };
 
 export function ATSScoreCard({ atsScore }: ATSScoreCardProps) {
-  const [activeTab, setActiveTab] = useState<'breakdown' | 'skills' | 'recommendations'>('breakdown');
+  const [activeTab, setActiveTab] = useState<'breakdown' | 'skills' | 'recommendations'>(
+    'breakdown'
+  );
   const [copiedKeyword, setCopiedKeyword] = useState<string | null>(null);
 
   const { overall_score, sub_scores, missing_keywords, injectable_keywords, recommendations } =
@@ -66,7 +68,8 @@ export function ATSScoreCard({ atsScore }: ATSScoreCardProps) {
   // Circle progress calculation (circumference = 2 * PI * r = 2 * 3.14159 * 42 ≈ 264)
   const radius = 42;
   const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = circumference - (Math.min(100, Math.max(0, score)) / 100) * circumference;
+  const strokeDashoffset =
+    circumference - (Math.min(100, Math.max(0, score)) / 100) * circumference;
 
   const handleCopy = (kw: string) => {
     navigator.clipboard.writeText(kw);
@@ -82,10 +85,13 @@ export function ATSScoreCard({ atsScore }: ATSScoreCardProps) {
           <span className="text-xs font-mono font-bold uppercase tracking-wider text-muted-foreground">
             ATS Compatibility Score
           </span>
-          <h3 className="text-lg font-mono font-bold text-foreground">
-            Resume Match Analysis
-          </h3>
-          <div className={cn('inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold border', currentTheme.bg)}>
+          <h3 className="text-lg font-mono font-bold text-foreground">Resume Match Analysis</h3>
+          <div
+            className={cn(
+              'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold border',
+              currentTheme.bg
+            )}
+          >
             <TrendingUp className="h-3 w-3" />
             <span>{currentTheme.badge}</span>
           </div>
@@ -254,7 +260,11 @@ export function ATSScoreCard({ atsScore }: ATSScoreCardProps) {
                     className="inline-flex items-center gap-1 text-xs font-mono bg-primary/10 border border-primary/20 text-primary rounded-md px-2 py-1 hover:bg-primary/20 transition-all cursor-pointer"
                   >
                     <span>{kw}</span>
-                    {copiedKeyword === kw ? <Check className="h-3 w-3 text-emerald-500" /> : <Copy className="h-2.5 w-2.5 opacity-60" />}
+                    {copiedKeyword === kw ? (
+                      <Check className="h-3 w-3 text-emerald-500" />
+                    ) : (
+                      <Copy className="h-2.5 w-2.5 opacity-60" />
+                    )}
                   </button>
                 ))}
               </div>

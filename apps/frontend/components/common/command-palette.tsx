@@ -177,7 +177,9 @@ export function CommandPalette({ open, onOpenChange, onOpenUpload }: CommandPale
       setSelectedIndex((prev) => (prev + 1) % Math.max(1, filteredItems.length));
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      setSelectedIndex((prev) => (prev - 1 + filteredItems.length) % Math.max(1, filteredItems.length));
+      setSelectedIndex(
+        (prev) => (prev - 1 + filteredItems.length) % Math.max(1, filteredItems.length)
+      );
     } else if (e.key === 'Enter') {
       e.preventDefault();
       if (filteredItems[selectedIndex]) {
@@ -242,14 +244,29 @@ export function CommandPalette({ open, onOpenChange, onOpenUpload }: CommandPale
                   )}
                 >
                   <div className="flex items-center gap-3">
-                    <Icon className={cn('h-4 w-4', isSelected ? 'text-primary-foreground' : 'text-muted-foreground')} />
+                    <Icon
+                      className={cn(
+                        'h-4 w-4',
+                        isSelected ? 'text-primary-foreground' : 'text-muted-foreground'
+                      )}
+                    />
                     <span>{item.label}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className={cn('text-[10px] uppercase opacity-60', isSelected ? 'text-primary-foreground' : 'text-muted-foreground')}>
+                    <span
+                      className={cn(
+                        'text-[10px] uppercase opacity-60',
+                        isSelected ? 'text-primary-foreground' : 'text-muted-foreground'
+                      )}
+                    >
                       {item.category}
                     </span>
-                    <ArrowRight className={cn('h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity', isSelected && 'opacity-100')} />
+                    <ArrowRight
+                      className={cn(
+                        'h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity',
+                        isSelected && 'opacity-100'
+                      )}
+                    />
                   </div>
                 </button>
               );

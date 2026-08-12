@@ -2,8 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useTranslations } from '@/lib/i18n';
-
 // Icons
 import Sparkles from 'lucide-react/dist/esm/icons/sparkles';
 import ArrowRight from 'lucide-react/dist/esm/icons/arrow-right';
@@ -16,8 +14,6 @@ import Wand2 from 'lucide-react/dist/esm/icons/wand-2';
 import Kanban from 'lucide-react/dist/esm/icons/kanban';
 
 export default function Hero() {
-  const { t } = useTranslations();
-
   return (
     <div className="relative min-h-[calc(100vh-4rem)] w-full overflow-hidden bg-background flex flex-col justify-between">
       {/* Background Glow Mesh */}
@@ -57,7 +53,8 @@ export default function Hero() {
           </h1>
 
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto font-sans leading-relaxed">
-            Harness precision ATS keyword matching, AI STAR-method bullet enhancements, and automated interview prep designed to get your resume past applicant tracking systems.
+            Harness precision ATS keyword matching, AI STAR-method bullet enhancements, and
+            automated interview prep designed to get your resume past applicant tracking systems.
           </p>
 
           {/* CTA Buttons */}
@@ -97,7 +94,9 @@ export default function Hero() {
                 <div className="relative flex items-center justify-center h-28 w-28 rounded-full border-4 border-emerald-500/20 bg-emerald-500/5 text-emerald-600 dark:text-emerald-400">
                   <div className="flex flex-col items-center">
                     <span className="text-3xl font-black font-mono">94%</span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">ATS Match</span>
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">
+                      ATS Match
+                    </span>
                   </div>
                 </div>
                 <div className="mt-3 font-mono text-xs font-bold text-foreground uppercase flex items-center gap-1.5">
@@ -112,7 +111,15 @@ export default function Hero() {
                   Identified Key Skills
                 </span>
                 <div className="flex flex-wrap gap-1.5">
-                  {['TypeScript', 'React 19', 'Next.js', 'FastAPI', 'System Architecture', 'CI/CD', 'SQL'].map((skill) => (
+                  {[
+                    'TypeScript',
+                    'React 19',
+                    'Next.js',
+                    'FastAPI',
+                    'System Architecture',
+                    'CI/CD',
+                    'SQL',
+                  ].map((skill) => (
                     <span
                       key={skill}
                       className="px-2.5 py-1 rounded-md text-[11px] font-mono font-semibold bg-primary/10 text-primary border border-primary/20"
@@ -130,10 +137,13 @@ export default function Hero() {
               <div className="flex flex-col p-5 rounded-xl bg-background/60 border border-border/60 space-y-2.5">
                 <div className="flex items-center justify-between text-xs font-mono font-bold uppercase">
                   <span className="text-muted-foreground">AI STAR Enhancement</span>
-                  <span className="text-emerald-500 text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Optimized</span>
+                  <span className="text-emerald-500 text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                    Optimized
+                  </span>
                 </div>
                 <p className="text-xs font-sans text-foreground/90 bg-muted/30 p-2.5 rounded-md border border-border/40 italic">
-                  &ldquo;Orchestrated high-throughput microservices using FastAPI and SQLite, reducing latency by 42% and increasing tailoring throughput 5x.&rdquo;
+                  &ldquo;Orchestrated high-throughput microservices using FastAPI and SQLite,
+                  reducing latency by 42% and increasing tailoring throughput 5x.&rdquo;
                 </p>
                 <div className="flex items-center gap-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-mono font-semibold">
                   <Sparkles className="h-3 w-3" />
@@ -149,22 +159,36 @@ export default function Hero() {
           <div className="p-3 rounded-lg border border-border/60 bg-card/40">
             <Cpu className="h-5 w-5 mx-auto text-primary mb-1" />
             <div className="text-xs font-mono font-bold text-foreground uppercase">Multi-LLM</div>
-            <div className="text-[10px] text-muted-foreground font-sans">OpenAI, Claude, Gemini, Groq</div>
+            <div className="text-[10px] text-muted-foreground font-sans">
+              OpenAI, Claude, Gemini, Groq
+            </div>
           </div>
           <div className="p-3 rounded-lg border border-border/60 bg-card/40">
             <FileCheck className="h-5 w-5 mx-auto text-emerald-500 mb-1" />
-            <div className="text-xs font-mono font-bold text-foreground uppercase">Precision ATS</div>
-            <div className="text-[10px] text-muted-foreground font-sans">Keyword & Sub-score Radar</div>
+            <div className="text-xs font-mono font-bold text-foreground uppercase">
+              Precision ATS
+            </div>
+            <div className="text-[10px] text-muted-foreground font-sans">
+              Keyword & Sub-score Radar
+            </div>
           </div>
           <div className="p-3 rounded-lg border border-border/60 bg-card/40">
             <Kanban className="h-5 w-5 mx-auto text-amber-500 mb-1" />
-            <div className="text-xs font-mono font-bold text-foreground uppercase">Kanban Tracker</div>
-            <div className="text-[10px] text-muted-foreground font-sans">Pipeline & Salary Tracking</div>
+            <div className="text-xs font-mono font-bold text-foreground uppercase">
+              Kanban Tracker
+            </div>
+            <div className="text-[10px] text-muted-foreground font-sans">
+              Pipeline & Salary Tracking
+            </div>
           </div>
           <div className="p-3 rounded-lg border border-border/60 bg-card/40">
             <ShieldCheck className="h-5 w-5 mx-auto text-indigo-500 mb-1" />
-            <div className="text-xs font-mono font-bold text-foreground uppercase">100% Private</div>
-            <div className="text-[10px] text-muted-foreground font-sans">Local & Encrypted Storage</div>
+            <div className="text-xs font-mono font-bold text-foreground uppercase">
+              100% Private
+            </div>
+            <div className="text-[10px] text-muted-foreground font-sans">
+              Local & Encrypted Storage
+            </div>
           </div>
         </div>
       </div>

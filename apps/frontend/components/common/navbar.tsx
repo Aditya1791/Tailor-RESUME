@@ -34,7 +34,7 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
   const { t } = useTranslations();
   const { resolvedTheme, toggleTheme } = useTheme();
   const { status, isLoading: statusLoading } = useStatusCache();
-  const { currentLanguage, setLanguage, supportedLanguages } = useLanguage();
+  const { uiLanguage, setUiLanguage, supportedLanguages, languageNames } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
 
@@ -151,21 +151,21 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
               >
                 {supportedLanguages.map((lang) => (
                   <button
-                    key={lang.code}
+                    key={lang}
                     onClick={() => {
-                      setLanguage(lang.code);
+                      setUiLanguage(lang);
                       setLangMenuOpen(false);
                     }}
                     type="button"
                     className={cn(
                       'flex w-full items-center justify-between px-2.5 py-1.5 text-xs font-mono rounded transition-colors text-left',
-                      currentLanguage === lang.code
+                      uiLanguage === lang
                         ? 'bg-primary text-primary-foreground font-bold'
                         : 'text-foreground hover:bg-muted'
                     )}
                   >
-                    <span>{lang.nativeName}</span>
-                    <span className="text-[10px] uppercase opacity-70">{lang.code}</span>
+                    <span>{languageNames[lang]}</span>
+                    <span className="text-[10px] uppercase opacity-70">{lang}</span>
                   </button>
                 ))}
               </div>

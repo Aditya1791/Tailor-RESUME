@@ -307,7 +307,11 @@ export default function DashboardPage() {
           <div>
             <div className="text-xs font-mono uppercase text-muted-foreground">Master Resume</div>
             <div className="text-sm font-mono font-bold text-foreground">
-              {masterResumeId ? (processingStatus === 'ready' ? 'Active & Ready' : processingStatus) : 'Not Uploaded'}
+              {masterResumeId
+                ? processingStatus === 'ready'
+                  ? 'Active & Ready'
+                  : processingStatus
+                : 'Not Uploaded'}
             </div>
           </div>
         </div>
@@ -317,8 +321,12 @@ export default function DashboardPage() {
             <Sparkles className="h-5 w-5" />
           </div>
           <div>
-            <div className="text-xs font-mono uppercase text-muted-foreground">Tailored Versions</div>
-            <div className="text-sm font-mono font-bold text-foreground">{tailoredResumes.length} Generated</div>
+            <div className="text-xs font-mono uppercase text-muted-foreground">
+              Tailored Versions
+            </div>
+            <div className="text-sm font-mono font-bold text-foreground">
+              {tailoredResumes.length} Generated
+            </div>
           </div>
         </div>
 
@@ -340,7 +348,10 @@ export default function DashboardPage() {
           </div>
           <div>
             <div className="text-xs font-mono uppercase text-muted-foreground">Quick Action</div>
-            <Link href="/tailor" className="text-sm font-mono font-bold text-primary hover:underline">
+            <Link
+              href="/tailor"
+              className="text-sm font-mono font-bold text-primary hover:underline"
+            >
               Start Tailoring →
             </Link>
           </div>
@@ -358,12 +369,17 @@ export default function DashboardPage() {
                   {t('dashboard.llmNotConfiguredTitle') || 'AI Provider Not Configured'}
                 </p>
                 <p className="font-mono text-xs text-amber-700 dark:text-amber-400 mt-0.5">
-                  {t('dashboard.llmNotConfiguredMessage') || 'Please add your API key in settings to enable AI resume tailoring.'}
+                  {t('dashboard.llmNotConfiguredMessage') ||
+                    'Please add your API key in settings to enable AI resume tailoring.'}
                 </p>
               </div>
             </div>
             <Link href="/settings">
-              <Button variant="outline" size="sm" className="border-amber-500/40 text-amber-800 dark:text-amber-300">
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-amber-500/40 text-amber-800 dark:text-amber-300"
+              >
                 <Settings className="w-4 h-4 mr-2" />
                 {t('nav.settings') || 'Settings'}
               </Button>
@@ -389,7 +405,8 @@ export default function DashboardPage() {
                     {t('dashboard.setupRequiredTitle') || 'Setup Required'}
                   </CardTitle>
                   <CardDescription className="text-amber-700 dark:text-amber-400 text-xs">
-                    {t('dashboard.setupRequiredMessage') || 'Configure AI credentials in settings to start uploading and tailoring resumes.'}
+                    {t('dashboard.setupRequiredMessage') ||
+                      'Configure AI credentials in settings to start uploading and tailoring resumes.'}
                   </CardDescription>
                   <div className="flex items-center gap-2 mt-4 text-amber-800 dark:text-amber-300 font-mono text-xs font-bold uppercase">
                     <Settings className="w-4 h-4" />
@@ -469,11 +486,15 @@ export default function DashboardPage() {
               <CardTitle className="text-base font-mono uppercase text-foreground group-hover:text-primary transition-colors">
                 {t('dashboard.masterResume') || 'Master Resume'}
               </CardTitle>
-              <p className="text-xs text-muted-foreground mt-1">Source base resume for tailoring.</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Source base resume for tailoring.
+              </p>
             </div>
 
             <div className="pt-4 border-t border-border/60">
-              <div className={`text-xs font-mono flex items-center gap-1.5 uppercase ${getStatusDisplay().color}`}>
+              <div
+                className={`text-xs font-mono flex items-center gap-1.5 uppercase ${getStatusDisplay().color}`}
+              >
                 {getStatusDisplay().icon}
                 <span>{getStatusDisplay().text}</span>
               </div>
@@ -505,7 +526,11 @@ export default function DashboardPage() {
         {/* 2. Tailored Resumes */}
         {tailoredResumes.map((resume) => {
           const title =
-            resume.title || resume.jobSnippet || resume.filename || t('dashboard.tailoredResume') || 'Tailored Resume';
+            resume.title ||
+            resume.jobSnippet ||
+            resume.filename ||
+            t('dashboard.tailoredResume') ||
+            'Tailored Resume';
           const color = cardPalette[hashTitle(title) % cardPalette.length];
           return (
             <Card
@@ -540,7 +565,10 @@ export default function DashboardPage() {
         })}
 
         {/* 3. Create Tailored Resume Card */}
-        <Card className="aspect-square h-full rounded-xl border-dashed border-border flex flex-col items-center justify-center p-6 text-center" variant="default">
+        <Card
+          className="aspect-square h-full rounded-xl border-dashed border-border flex flex-col items-center justify-center p-6 text-center"
+          variant="default"
+        >
           <Button
             onClick={() => router.push('/tailor')}
             disabled={!isTailorEnabled}
@@ -558,7 +586,10 @@ export default function DashboardPage() {
           open={showDeleteDialog}
           onOpenChange={setShowDeleteDialog}
           title={t('confirmations.deleteMasterResumeTitle') || 'Delete Master Resume?'}
-          description={t('confirmations.deleteMasterResumeDescription') || 'This will remove the current master resume and all associated tailoring history.'}
+          description={
+            t('confirmations.deleteMasterResumeDescription') ||
+            'This will remove the current master resume and all associated tailoring history.'
+          }
           confirmLabel={t('dashboard.deleteAndReupload') || 'Delete and Re-upload'}
           cancelLabel={t('confirmations.keepResumeCancelLabel') || 'Cancel'}
           onConfirm={confirmDeleteAndReupload}

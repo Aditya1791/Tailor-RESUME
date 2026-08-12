@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 
 // Icons
 import Sparkles from 'lucide-react/dist/esm/icons/sparkles';
@@ -22,7 +21,13 @@ export function StarMethodOptimizer({ onApplyBullet }: StarMethodOptimizerProps)
   const [roleContext, setRoleContext] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedOptions, setGeneratedOptions] = useState<
-    Array<{ type: string; title: string; bullet: string; icon: React.ElementType; rationale: string }>
+    Array<{
+      type: string;
+      title: string;
+      bullet: string;
+      icon: React.ElementType;
+      rationale: string;
+    }>
   >([]);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 

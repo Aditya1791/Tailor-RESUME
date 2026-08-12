@@ -215,13 +215,21 @@ export function KanbanBoard() {
             {t('tracker.title') || 'Application Tracker'}
           </h1>
           <div className="flex items-center gap-4 mt-2 text-xs font-mono text-muted-foreground">
-            <span>Total: <strong className="text-foreground">{totalApplied}</strong></span>
+            <span>
+              Total: <strong className="text-foreground">{totalApplied}</strong>
+            </span>
             <span>•</span>
-            <span>Interviews: <strong className="text-primary">{inInterview}</strong></span>
+            <span>
+              Interviews: <strong className="text-primary">{inInterview}</strong>
+            </span>
             <span>•</span>
-            <span>Offers: <strong className="text-emerald-500">{totalAccepted}</strong></span>
+            <span>
+              Offers: <strong className="text-emerald-500">{totalAccepted}</strong>
+            </span>
             <span>•</span>
-            <span>Conversion: <strong className="text-foreground">{interviewRate.toFixed(0)}%</strong></span>
+            <span>
+              Conversion: <strong className="text-foreground">{interviewRate.toFixed(0)}%</strong>
+            </span>
           </div>
         </div>
 
@@ -260,7 +268,11 @@ export function KanbanBoard() {
             </div>
           )}
 
-          <Button size="sm" onClick={() => setManualAddOpen(true)} className="text-xs font-mono font-bold uppercase gap-1.5">
+          <Button
+            size="sm"
+            onClick={() => setManualAddOpen(true)}
+            className="text-xs font-mono font-bold uppercase gap-1.5"
+          >
             <Plus className="h-4 w-4" />
             {t('tracker.addApplication') || 'Add Application'}
           </Button>
