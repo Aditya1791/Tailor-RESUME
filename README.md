@@ -166,7 +166,7 @@ LLM_API_KEY=sk-...
 
 # Google Gemini
 LLM_PROVIDER=gemini
-LLM_MODEL=gemini/gemini-2.5-flash
+LLM_MODEL=gemini/gemini-2.0-flash
 LLM_API_KEY=AIzaSy...
 
 # Anthropic Claude
