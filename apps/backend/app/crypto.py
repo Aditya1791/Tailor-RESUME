@@ -73,13 +73,15 @@ def _load_fernet() -> Fernet:
         return _fernet
 
     if path.exists():
-        key = path.read_bytes().strip()
-        # Re-assert restrictive perms in case the file pre-existed (or was
-        # copied) with broader permissions before this hardening (best-effort).
         try:
-            os.chmod(path, 0o600)
-        except OSError:  # pragma: no cover - platform dependent (e.g. Windows)
-            pass
+            key = path.read_bytes().strip()
+            try:
+                os.chmod(path, 0o600)
+            except OSError:  # pragma: no cover - platform dependent (e.g. Windows)
+                pass
+        except OSError as e:
+            logger.warning("Could not read encryption secret from %s: %s; generating temporary key", path, e)
+            key = Fernet.generate_key()
     else:
         key = Fernet.generate_key()
         try:
@@ -88,7 +90,12 @@ def _load_fernet() -> Fernet:
         except FileExistsError:
             # Another caller generated the secret first — use theirs so we
             # never overwrite a key that may already have encrypted data.
-            key = path.read_bytes().strip()
+            try:
+                key = path.read_bytes().strip()
+            except OSError:
+                pass
+        except OSError as e:
+            logger.warning("Could not persist encryption secret to %s: %s; using in-memory key", path, e)
 
     try:
         _fernet = Fernet(key)
@@ -98,7 +105,10 @@ def _load_fernet() -> Fernet:
         # already unrecoverable) so key save/read flows keep working.
         logger.warning("Invalid encryption secret at %s; regenerating.", path)
         key = Fernet.generate_key()
-        _write_secret(path, key)
+        try:
+            _write_secret(path, key)
+        except OSError:
+            pass
         _fernet = Fernet(key)
     _loaded_from = path
     return _fernet

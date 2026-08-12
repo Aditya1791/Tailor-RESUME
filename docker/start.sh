@@ -157,14 +157,20 @@ file_env "LLM_PROVIDER" "openai"
 # so we don't override backend defaults with empty strings.
 if [ -n "${LLM_MODEL:-}" ] || [ -n "${LLM_MODEL_FILE:-}" ]; then
     file_env "LLM_MODEL"
+else
+    unset LLM_MODEL
 fi
 
 if [ -n "${LLM_API_KEY:-}" ] || [ -n "${LLM_API_KEY_FILE:-}" ]; then
     file_env "LLM_API_KEY"
+else
+    unset LLM_API_KEY
 fi
 
 if [ -n "${LLM_API_BASE:-}" ] || [ -n "${LLM_API_BASE_FILE:-}" ]; then
     file_env "LLM_API_BASE"
+else
+    unset LLM_API_BASE
 fi
 APP_LOG_LEVEL="$(normalize_log_level "${LOG_LEVEL}" "INFO" "LOG_LEVEL")"
 LLM_LOG_LEVEL="$(normalize_log_level "${LOG_LLM}" "WARNING" "LOG_LLM")"
@@ -180,12 +186,21 @@ status "Configuration loaded"
 
 # Check and create data directory
 info "Checking data directory..."
-DATA_DIR="/app/backend/data"
+DATA_DIR="${DATA_DIR:-/app/backend/data}"
 if [ ! -d "$DATA_DIR" ]; then
-    mkdir -p "$DATA_DIR"
-    status "Created data directory: $DATA_DIR"
+    mkdir -p "$DATA_DIR" 2>/dev/null || true
+fi
+
+# Verify data directory is writable; fallback if mounted read-only or owned by root
+if touch "${DATA_DIR}/.write_test" 2>/dev/null; then
+    rm -f "${DATA_DIR}/.write_test"
+    status "Data directory is writable: ${DATA_DIR}"
 else
-    status "Data directory exists: $DATA_DIR"
+    warn "Data directory ${DATA_DIR} is not writable by $(id -un 2>/dev/null || echo 'appuser'). Falling back to /tmp/resume_matcher_data"
+    DATA_DIR="/tmp/resume_matcher_data"
+    mkdir -p "${DATA_DIR}"
+    export DATA_DIR
+    status "Fallback data directory configured: ${DATA_DIR}"
 fi
 
 # Check for Playwright browsers
@@ -204,24 +219,35 @@ fi
 echo ""
 info "Starting backend server on internal port ${BACKEND_PORT}..."
 cd /app/backend
+BACKEND_LOG="/tmp/backend_startup.log"
+rm -f "$BACKEND_LOG"
+
 trap '' SIGTERM SIGINT SIGQUIT
-python -m uvicorn app.main:app --host 0.0.0.0 --port "${BACKEND_PORT}" --log-level "${UVICORN_LOG_LEVEL}" &
+python -m uvicorn app.main:app --host 0.0.0.0 --port "${BACKEND_PORT}" --log-level "${UVICORN_LOG_LEVEL}" > >(tee -a "$BACKEND_LOG") 2>&1 &
 BACKEND_PID=$!
 trap cleanup SIGTERM SIGINT SIGQUIT
 
 # Wait for backend to be ready
 info "Waiting for backend to be ready..."
-for i in {1..30}; do
+for i in {1..60}; do
     if curl -s "http://127.0.0.1:${BACKEND_PORT}/api/v1/health" > /dev/null 2>&1; then
         status "Backend is ready (PID: $BACKEND_PID)"
         break
     fi
     if ! kill -0 "$BACKEND_PID" 2>/dev/null; then
-        error "Backend process (PID: $BACKEND_PID) died during startup"
+        EXIT_CODE=1
+        error "Backend process (PID: $BACKEND_PID) died during startup. Recent logs:"
+        if [ -f "$BACKEND_LOG" ]; then
+            cat "$BACKEND_LOG" >&2
+        fi
         exit 1
     fi
-    if [ $i -eq 30 ]; then
-        error "Backend failed to start within 30 seconds"
+    if [ $i -eq 60 ]; then
+        EXIT_CODE=1
+        error "Backend failed to start within 60 seconds. Recent logs:"
+        if [ -f "$BACKEND_LOG" ]; then
+            cat "$BACKEND_LOG" >&2
+        fi
         exit 1
     fi
     sleep 1
@@ -236,6 +262,7 @@ cd /app/frontend
 export HOSTNAME="0.0.0.0"
 export PORT="${FRONTEND_PORT}"
 if [ ! -f "server.js" ]; then
+    EXIT_CODE=1
     error "Missing frontend standalone server.js. Rebuild the Docker image."
     exit 1
 fi

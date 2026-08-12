@@ -225,10 +225,38 @@ class Settings(BaseSettings):
     @field_validator("llm_provider", mode="before")
     @classmethod
     def set_default_provider(cls, v: Any) -> str:
-        """Handle empty string provider by defaulting to openai."""
+        """Normalize provider name, handle aliases, and fallback gracefully."""
         if not v or (isinstance(v, str) and not v.strip()):
             return "openai"
-        return v
+        val = str(v).strip().lower()
+        aliases = {
+            "google": "gemini",
+            "claude": "anthropic",
+            "azure": "azure_foundry",
+        }
+        val = aliases.get(val, val)
+        allowed = {
+            "openai",
+            "openai_compatible",
+            "azure_foundry",
+            "anthropic",
+            "openrouter",
+            "gemini",
+            "deepseek",
+            "groq",
+            "ollama",
+        }
+        if val not in allowed:
+            return "openai"
+        return val
+
+    @field_validator("llm_model", mode="before")
+    @classmethod
+    def set_default_model(cls, v: Any) -> str:
+        """Handle empty string model by defaulting to gpt-5-nano-2025-08-07."""
+        if not v or (isinstance(v, str) and not v.strip()):
+            return "gpt-5-nano-2025-08-07"
+        return str(v).strip()
 
     @field_validator("log_llm", mode="before")
     @classmethod
@@ -236,7 +264,7 @@ class Settings(BaseSettings):
         """Normalize LiteLLM log level from environment values."""
         value = "WARNING" if not v else str(v).strip().upper()
         if value not in ALLOWED_LOG_LEVELS:
-            raise ValueError(f"Invalid LOG_LLM: {value}. Allowed: {ALLOWED_LOG_LEVELS}")
+            return "WARNING"
         return value
 
     # Server Configuration
@@ -279,10 +307,13 @@ class Settings(BaseSettings):
     @field_validator("reasoning_effort", mode="before")
     @classmethod
     def normalize_reasoning_effort(cls, v: Any) -> Any:
-        """Treat empty string (common when env var is blank) as None."""
-        if isinstance(v, str) and not v.strip():
+        """Treat empty string or invalid value as None."""
+        if not v or (isinstance(v, str) and not v.strip()):
             return None
-        return v
+        val = str(v).strip().lower()
+        if val in ("minimal", "low", "medium", "high"):
+            return val
+        return None
 
     @field_validator("log_level", mode="before")
     @classmethod
@@ -290,7 +321,7 @@ class Settings(BaseSettings):
         """Normalize application log level from environment values."""
         value = "INFO" if not v else str(v).strip().upper()
         if value not in ALLOWED_LOG_LEVELS:
-            raise ValueError(f"Invalid LOG_LEVEL: {value}. Allowed: {ALLOWED_LOG_LEVELS}")
+            return "INFO"
         return value
 
     # CORS Configuration

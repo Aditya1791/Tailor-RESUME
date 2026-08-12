@@ -38,3 +38,31 @@ class TestRequestTimeoutSetting:
 
     def test_nan_falls_back_to_default(self):
         assert Settings(request_timeout_seconds="nan").request_timeout_seconds == 240
+
+
+class TestSettingsResilience:
+    def test_llm_provider_aliases_and_fallback(self):
+        assert Settings(llm_provider="google").llm_provider == "gemini"
+        assert Settings(llm_provider="claude").llm_provider == "anthropic"
+        assert Settings(llm_provider="azure").llm_provider == "azure_foundry"
+        assert Settings(llm_provider="OPENAI").llm_provider == "openai"
+        assert Settings(llm_provider="  openai  ").llm_provider == "openai"
+        assert Settings(llm_provider="").llm_provider == "openai"
+        assert Settings(llm_provider="invalid_provider_xyz").llm_provider == "openai"
+
+    def test_llm_model_fallback(self):
+        assert Settings(llm_model="").llm_model == "gpt-5-nano-2025-08-07"
+        assert Settings(llm_model="   ").llm_model == "gpt-5-nano-2025-08-07"
+        assert Settings(llm_model="claude-3-5-sonnet").llm_model == "claude-3-5-sonnet"
+
+    def test_log_levels_fallback(self):
+        assert Settings(log_level="invalid").log_level == "INFO"
+        assert Settings(log_level="debug").log_level == "DEBUG"
+        assert Settings(log_llm="invalid").log_llm == "WARNING"
+        assert Settings(log_llm="debug").log_llm == "DEBUG"
+
+    def test_reasoning_effort_normalization(self):
+        assert Settings(reasoning_effort="").reasoning_effort is None
+        assert Settings(reasoning_effort="invalid").reasoning_effort is None
+        assert Settings(reasoning_effort="HIGH").reasoning_effort == "high"
+
