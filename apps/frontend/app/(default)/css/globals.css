@@ -125,20 +125,102 @@
   --sidebar-ring: #1d4ed8;
 }
 
-/* Light theme only — Swiss/Brutalist works on the warm Canvas background.
-   The half-finished dark mode mapping was removed; .impeccable.md commits
-   to light only. */
+.dark {
+  --background: #090d16;
+  --foreground: #f8fafc;
+
+  --card: #0f172a;
+  --card-foreground: #f8fafc;
+
+  --popover: #0f172a;
+  --popover-foreground: #f8fafc;
+
+  --primary: #3b82f6;
+  --primary-foreground: #ffffff;
+
+  --secondary: #1e293b;
+  --secondary-foreground: #f8fafc;
+
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+
+  --accent: #1e293b;
+  --accent-foreground: #f8fafc;
+
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+
+  --border: #334155;
+  --input: #1e293b;
+  --ring: #3b82f6;
+
+  --chart-1: #3b82f6;
+  --chart-2: #10b981;
+  --chart-3: #f59e0b;
+  --chart-4: #ef4444;
+  --chart-5: #8b5cf6;
+
+  --sidebar: #0f172a;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #3b82f6;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1e293b;
+  --sidebar-accent-foreground: #f8fafc;
+  --sidebar-border: #334155;
+  --sidebar-ring: #3b82f6;
+
+  --color-canvas: #090d16;
+  --color-ink: #f8fafc;
+  --color-steel-grey: #64748b;
+  --color-ink-soft: #cbd5e1;
+  --shadow-sw-xs: 1px 1px 0px 0px #334155;
+  --shadow-sw-sm: 2px 2px 0px 0px #334155;
+  --shadow-sw-default: 4px 4px 0px 0px #334155;
+  --shadow-sw-card: 6px 6px 0px 0px #334155;
+  --shadow-sw-lg: 8px 8px 0px 0px #334155;
+  --shadow-sw-xl: 12px 12px 0px 0px #334155;
+}
+
+@layer utilities {
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .dark .glass-panel {
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .glass-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+  }
+  .dark .glass-card {
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
+  }
+  .glow-blue {
+    box-shadow: 0 0 25px -5px rgba(59, 130, 246, 0.4);
+  }
+  .glow-emerald {
+    box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.4);
+  }
+}
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring/50 transition-colors duration-150;
   }
   body {
     @apply bg-background text-foreground;
   }
-  /* The global `button { font-family: var(--font-mono) }` rule was removed.
-     The Button component applies font-mono via its Tailwind classes, and the
-     global rule was leaking into nested text inside <button> elements. */
 }
 
 @media print {

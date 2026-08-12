@@ -5,7 +5,7 @@
 
 <br/>
 
-[![GitHub Stars](https://img.shields.io/github/stars/srbhr/Resume-Matcher?style=for-the-badge&logo=github&color=1d4ed8&labelColor=0f172a)](https://github.com/)
+[![GitHub Stars](https://img.shields.io/github/stars/Aditya1791/Tailor-RESUME?style=for-the-badge&logo=github&color=1d4ed8&labelColor=0f172a)](https://github.com/Aditya1791/Tailor-RESUME)
 [![License](https://img.shields.io/badge/License-Apache%202.0-10b981?style=for-the-badge&labelColor=0f172a)](LICENSE)
 [![Next.js](https://img.shields.io/badge/Next.js%2016-000000?style=for-the-badge&logo=nextdotjs&logoColor=white&labelColor=0f172a)](https://nextjs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white&labelColor=0f172a)](https://fastapi.tiangolo.com/)

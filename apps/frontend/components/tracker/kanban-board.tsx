@@ -53,6 +53,7 @@ export function KanbanBoard() {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [openCardId, setOpenCardId] = useState<string | null>(null);
   const [manualAddOpen, setManualAddOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Horizontal-scroll affordance: the seven stages overflow the canvas, so we
   // track whether more columns sit off-screen and surface controls + a stage
@@ -68,7 +69,7 @@ export function KanbanBoard() {
       setColumns({ ...emptyColumns(), ...data.columns });
       setError(null);
     } catch {
-      setError(t('tracker.errors.loadFailed'));
+      setError(t('tracker.errors.loadFailed') || 'Failed to load applications');
     } finally {
       setLoading(false);
     }
@@ -83,6 +84,22 @@ export function KanbanBoard() {
     () => APPLICATION_STATUS_ORDER.flatMap((status) => columns[status]),
     [columns]
   );
+
+  // Filtered columns based on search query
+  const filteredColumns = useMemo(() => {
+    const q = searchQuery.toLowerCase().trim();
+    if (!q) return columns;
+    const res = emptyColumns();
+    for (const status of APPLICATION_STATUS_ORDER) {
+      res[status] = columns[status].filter((app) => {
+        const company = (app.company || '').toLowerCase();
+        const role = (app.role || '').toLowerCase();
+        const notes = (app.notes || '').toLowerCase();
+        return company.includes(q) || role.includes(q) || notes.includes(q);
+      });
+    }
+    return res;
+  }, [columns, searchQuery]);
 
   // Master resume ids that back more than one card → "shared resume" badge.
   const sharedResumeIds = useMemo(() => {
@@ -183,56 +200,81 @@ export function KanbanBoard() {
 
   const showScrollControls = !isEmpty && (canScrollLeft || canScrollRight);
 
+  // Pipeline metrics
+  const totalApplied = allCards.length;
+  const inInterview = columns['interview']?.length || 0;
+  const totalAccepted = columns['accepted']?.length || 0;
+  const interviewRate = totalApplied > 0 ? ((inInterview + totalAccepted) / totalApplied) * 100 : 0;
+
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      {/* Header — mirrors the dashboard canvas header */}
-      <div className="flex shrink-0 flex-col gap-4 border-b border-black p-6 md:flex-row md:items-center md:justify-between md:p-8">
+      {/* Header & Pipeline Analytics Bar */}
+      <div className="flex shrink-0 flex-col gap-4 border-b border-border bg-card/60 p-5 md:flex-row md:items-center md:justify-between md:p-6">
         <div>
-          <h1 className="font-serif text-3xl font-bold uppercase tracking-tight text-ink md:text-4xl">
-            {t('tracker.title')}
+          <h1 className="font-mono text-2xl font-black uppercase tracking-tight text-foreground md:text-3xl">
+            {t('tracker.title') || 'Application Tracker'}
           </h1>
-          <p className="mt-2 font-mono text-xs uppercase tracking-wide text-ink-soft">
-            {t('tracker.subtitle')}
-          </p>
+          <div className="flex items-center gap-4 mt-2 text-xs font-mono text-muted-foreground">
+            <span>Total: <strong className="text-foreground">{totalApplied}</strong></span>
+            <span>•</span>
+            <span>Interviews: <strong className="text-primary">{inInterview}</strong></span>
+            <span>•</span>
+            <span>Offers: <strong className="text-emerald-500">{totalAccepted}</strong></span>
+            <span>•</span>
+            <span>Conversion: <strong className="text-foreground">{interviewRate.toFixed(0)}%</strong></span>
+          </div>
         </div>
+
         <div className="flex items-center gap-3">
+          {/* Quick Search */}
+          <div className="relative">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Filter by company or role..."
+              className="w-48 sm:w-60 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-mono text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none"
+            />
+          </div>
+
           {showScrollControls && (
             <div className="flex items-center">
               <button
                 type="button"
-                aria-label={t('tracker.scroll.prev')}
+                aria-label={t('tracker.scroll.prev') || 'Previous stage'}
                 onClick={() => scrollByColumn(-1)}
                 disabled={!canScrollLeft}
-                className="flex h-10 w-10 items-center justify-center border border-black bg-background text-ink shadow-sw-xs transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none disabled:pointer-events-none disabled:opacity-30"
+                className="flex h-8 w-8 items-center justify-center rounded-l-md border border-border bg-background text-foreground shadow-xs transition-all hover:bg-muted disabled:pointer-events-none disabled:opacity-30"
               >
                 <ChevronLeft className="h-4 w-4" />
               </button>
               <button
                 type="button"
-                aria-label={t('tracker.scroll.next')}
+                aria-label={t('tracker.scroll.next') || 'Next stage'}
                 onClick={() => scrollByColumn(1)}
                 disabled={!canScrollRight}
-                className="-ml-px flex h-10 w-10 items-center justify-center border border-black bg-background text-ink shadow-sw-xs transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none disabled:pointer-events-none disabled:opacity-30"
+                className="-ml-px flex h-8 w-8 items-center justify-center rounded-r-md border border-border bg-background text-foreground shadow-xs transition-all hover:bg-muted disabled:pointer-events-none disabled:opacity-30"
               >
                 <ChevronRight className="h-4 w-4" />
               </button>
             </div>
           )}
-          <Button onClick={() => setManualAddOpen(true)}>
+
+          <Button size="sm" onClick={() => setManualAddOpen(true)} className="text-xs font-mono font-bold uppercase gap-1.5">
             <Plus className="h-4 w-4" />
-            {t('tracker.addApplication')}
+            {t('tracker.addApplication') || 'Add Application'}
           </Button>
         </div>
       </div>
 
       {error && (
-        <div className="shrink-0 border-b border-black bg-background px-6 py-3 font-mono text-xs text-destructive md:px-8">
+        <div className="shrink-0 border-b border-destructive/30 bg-destructive/10 px-6 py-2.5 font-mono text-xs text-destructive">
           {error}
         </div>
       )}
 
       {selectedIds.size > 0 && (
-        <div className="shrink-0 border-b border-black px-6 py-3 md:px-8">
+        <div className="shrink-0 border-b border-border px-6 py-2.5">
           <BulkActionBar
             selectedCount={selectedIds.size}
             onMove={handleBulkMove}
@@ -271,7 +313,7 @@ export function KanbanBoard() {
                 >
                   <KanbanColumn
                     status={status}
-                    applications={columns[status]}
+                    applications={filteredColumns[status]}
                     selectedIds={selectedIds}
                     sharedResumeIds={sharedResumeIds}
                     onToggleSelect={toggleSelect}

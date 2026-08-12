@@ -1,6 +1,6 @@
 services:
   resume-matcher:
-    image: ghcr.io/Aditya1791/resume-matcher
+    image: ghcr.io/Aditya1791/Tailor-RESUME
     build: .
     container_name: resume-matcher
     ports:
