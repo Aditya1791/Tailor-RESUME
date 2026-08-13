@@ -97,16 +97,16 @@ export function CardDetailModal({
 
         {loading ? (
           <div className="flex items-center justify-center py-10">
-            <Loader2 className="h-5 w-5 animate-spin text-steel-grey" />
+            <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
           </div>
         ) : detail ? (
           <div className="space-y-4">
-            <div className="flex items-center gap-2 font-mono text-xs uppercase text-ink-soft">
-              <span className="border border-black bg-paper-tint px-2 py-0.5">
+            <div className="flex items-center gap-2 font-mono text-xs uppercase text-foreground">
+              <span className="border border-border bg-muted/60 px-2 py-0.5">
                 {t(`tracker.columns.${detail.status}`)}
               </span>
               {detail.applied_at && (
-                <span>
+                <span className="text-muted-foreground">
                   {new Date(detail.applied_at).toLocaleDateString('en-US', {
                     month: 'short',
                     year: 'numeric',
@@ -117,7 +117,7 @@ export function CardDetailModal({
 
             <div className="space-y-1">
               <Label>{t('tracker.modal.jobDescription')}</Label>
-              <div className="max-h-48 overflow-y-auto whitespace-pre-wrap border border-black bg-background p-3 text-sm">
+              <div className="max-h-48 overflow-y-auto whitespace-pre-wrap border border-border bg-background p-3 text-sm text-foreground">
                 {detail.job_content || t('tracker.modal.noJobDescription')}
               </div>
             </div>
@@ -131,6 +131,7 @@ export function CardDetailModal({
                 onKeyDown={handleNotesKeyDown}
                 placeholder={t('tracker.modal.notesPlaceholder')}
                 rows={3}
+                className="border-border bg-background text-foreground"
               />
               <div className="flex items-center justify-end gap-3">
                 {notesError && (
@@ -141,6 +142,7 @@ export function CardDetailModal({
                   variant="outline"
                   onClick={handleSaveNotes}
                   disabled={savingNotes}
+                  className="border-border"
                 >
                   {savingNotes ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
@@ -158,7 +160,7 @@ export function CardDetailModal({
             )}
           </div>
         ) : (
-          <p className="py-6 text-center font-mono text-sm text-steel-grey">
+          <p className="py-6 text-center font-mono text-sm text-muted-foreground">
             {t('tracker.modal.loadFailed')}
           </p>
         )}

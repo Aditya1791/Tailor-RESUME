@@ -61,12 +61,12 @@ export function Dropdown({
   return (
     <div className={`space-y-1 ${className}`} ref={containerRef}>
       {label && (
-        <label className="font-mono text-xs font-bold uppercase tracking-wider text-ink-soft block">
+        <label className="font-mono text-xs font-bold uppercase tracking-wider text-muted-foreground block">
           {label}
         </label>
       )}
 
-      {description && <p className="text-sm text-ink-soft">{description}</p>}
+      {description && <p className="text-sm text-muted-foreground">{description}</p>}
 
       <div className="relative">
         {/* Trigger Button.

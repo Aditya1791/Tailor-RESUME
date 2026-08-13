@@ -161,31 +161,31 @@ export const FormattingControls: React.FC<FormattingControlsProps> = ({ settings
   };
 
   return (
-    <div className="border border-black bg-white shadow-sw-default">
+    <div className="border border-border bg-card shadow-sw-default text-foreground">
       {/* Header - Always Visible */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between p-3 hover:bg-paper-tint transition-colors"
+        className="w-full flex items-center justify-between p-3 hover:bg-muted transition-colors text-foreground"
       >
         <div className="flex items-center gap-2">
-          <div className="w-2 h-2 bg-blue-700"></div>
+          <div className="w-2 h-2 bg-primary"></div>
           <span className="font-mono text-xs font-bold uppercase tracking-wider">
             {t('builder.formatting.panelTitle')}
           </span>
         </div>
         {isExpanded ? (
-          <ChevronUp className="w-4 h-4 text-steel-grey" />
+          <ChevronUp className="w-4 h-4 text-muted-foreground" />
         ) : (
-          <ChevronDown className="w-4 h-4 text-steel-grey" />
+          <ChevronDown className="w-4 h-4 text-muted-foreground" />
         )}
       </button>
 
       {/* Expandable Content */}
       {isExpanded && (
-        <div className="border-t border-black p-4 space-y-6">
+        <div className="border-t border-border p-4 space-y-6">
           {/* Template Selection */}
           <div>
-            <h4 className="font-mono text-xs font-bold uppercase tracking-wider mb-3 text-ink-soft">
+            <h4 className="font-mono text-xs font-bold uppercase tracking-wider mb-3 text-foreground">
               {t('builder.formatting.template')}
             </h4>
             <div className="flex flex-wrap gap-3">
@@ -195,8 +195,8 @@ export const FormattingControls: React.FC<FormattingControlsProps> = ({ settings
                   onClick={() => handleTemplateChange(template.id)}
                   className={`group flex flex-col items-center p-2 border transition-all ${
                     settings.template === template.id
-                      ? 'border-blue-700 bg-white shadow-[2px_2px_0px_0px_#1D4ED8]'
-                      : 'border-black bg-white hover:bg-paper-tint hover:shadow-sw-xs'
+                      ? 'border-primary bg-primary/10 text-primary shadow-sw-xs'
+                      : 'border-border bg-card text-foreground hover:bg-muted hover:shadow-sw-xs'
                   }`}
                   title={templateLabels[template.id].description}
                 >
@@ -208,7 +208,7 @@ export const FormattingControls: React.FC<FormattingControlsProps> = ({ settings
                   </div>
                   <span
                     className={`font-mono text-[9px] uppercase tracking-wider font-bold ${
-                      settings.template === template.id ? 'text-blue-700' : 'text-ink-soft'
+                      settings.template === template.id ? 'text-primary' : 'text-foreground'
                     }`}
                   >
                     {templateLabels[template.id].name}

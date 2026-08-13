@@ -25,7 +25,7 @@ export const SummaryForm: React.FC<SummaryFormProps> = ({ value, onChange }) => 
       <div className="space-y-2">
         <Label
           htmlFor="summary"
-          className="font-mono text-xs uppercase tracking-wider text-steel-grey"
+          className="font-mono text-xs uppercase tracking-wider text-muted-foreground"
         >
           {t('resume.sections.summary')}
         </Label>

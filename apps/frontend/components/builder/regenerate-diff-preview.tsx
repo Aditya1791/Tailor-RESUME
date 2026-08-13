@@ -118,19 +118,19 @@ export const RegenerateDiffPreview: React.FC<RegenerateDiffPreviewProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[800px] max-h-[90vh] p-0 gap-0 rounded-none overflow-hidden">
-        <DialogHeader className="p-6 pb-4 border-b border-black">
-          <DialogTitle className="font-serif text-xl font-bold uppercase tracking-tight">
+      <DialogContent className="sm:max-w-[800px] max-h-[90vh] p-0 gap-0 rounded-none overflow-hidden bg-card text-foreground border border-border">
+        <DialogHeader className="p-6 pb-4 border-b border-border">
+          <DialogTitle className="font-serif text-xl font-bold uppercase tracking-tight text-foreground">
             {t('builder.regenerate.diffPreview.title')}
           </DialogTitle>
-          <DialogDescription className="font-mono text-xs text-ink-soft mt-2">
+          <DialogDescription className="font-mono text-xs text-muted-foreground mt-2">
             {t('builder.regenerate.diffPreview.subtitle')}
           </DialogDescription>
         </DialogHeader>
 
         {/* Stats Card */}
         <div className="px-6 pt-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-50 border border-green-200 text-green-700 font-mono text-xs">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-mono text-xs">
             <Check className="w-3 h-3" />
             {t('builder.regenerate.diffPreview.changesCount').replace(
               '{count}',
@@ -141,23 +141,23 @@ export const RegenerateDiffPreview: React.FC<RegenerateDiffPreviewProps> = ({
 
         {error ? (
           <div className="px-6 pt-4">
-            <div className="border border-red-600 bg-red-50 px-4 py-3">
-              <p className="font-mono text-xs text-red-700">{resolveErrorMessage(error)}</p>
+            <div className="border border-destructive bg-destructive/10 px-4 py-3">
+              <p className="font-mono text-xs text-destructive">{resolveErrorMessage(error)}</p>
             </div>
           </div>
         ) : null}
 
         {regenerateErrors.length > 0 ? (
           <div className="px-6 pt-4">
-            <div className="border border-black bg-[#FFF9DB] px-4 py-3">
-              <p className="font-mono text-xs text-ink-soft">
+            <div className="border border-warning bg-warning/10 px-4 py-3">
+              <p className="font-mono text-xs text-foreground">
                 {t('builder.regenerate.diffPreview.partialFailures', {
                   count: regenerateErrors.length,
                 })}
               </p>
               <ul className="mt-2 space-y-1">
                 {regenerateErrors.map((failed) => (
-                  <li key={failed.item_id} className="font-mono text-xs text-ink-soft">
+                  <li key={failed.item_id} className="font-mono text-xs text-muted-foreground">
                     • {getItemLabel(failed)}
                   </li>
                 ))}
@@ -169,7 +169,7 @@ export const RegenerateDiffPreview: React.FC<RegenerateDiffPreviewProps> = ({
         {/* Diff Content */}
         <div className="p-6 space-y-4 max-h-[50vh] overflow-y-auto">
           {regeneratedItems.map((item) => (
-            <div key={item.item_id} className="border border-black">
+            <div key={item.item_id} className="border border-border bg-card">
               {/* Item Header */}
               <button
                 type="button"
@@ -180,47 +180,47 @@ export const RegenerateDiffPreview: React.FC<RegenerateDiffPreviewProps> = ({
                     ? t('builder.regenerate.diffPreview.collapseItem', { item: getItemLabel(item) })
                     : t('builder.regenerate.diffPreview.expandItem', { item: getItemLabel(item) })
                 }
-                className="w-full p-4 flex items-center justify-between bg-background hover:bg-secondary transition-colors"
+                className="w-full p-4 flex items-center justify-between bg-card hover:bg-muted transition-colors text-foreground"
               >
                 <div className="flex items-center gap-3">
-                  {getItemIcon(item.item_type)}
-                  <span className="font-mono text-sm tracking-wider font-medium truncate">
+                  <span className="text-primary">{getItemIcon(item.item_type)}</span>
+                  <span className="font-mono text-sm tracking-wider font-medium truncate text-foreground">
                     {getItemLabel(item)}
                   </span>
                 </div>
                 {expandedItems.has(item.item_id) ? (
-                  <ChevronDown className="w-4 h-4" />
+                  <ChevronDown className="w-4 h-4 text-muted-foreground" />
                 ) : (
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
                 )}
               </button>
 
               {/* Item Diff Content */}
               {expandedItems.has(item.item_id) && (
-                <div className="border-t border-black">
+                <div className="border-t border-border">
                   {/* Change Summary */}
                   {item.diff_summary && (
-                    <div className="p-3 border-b border-black">
-                      <p className="font-mono text-xs text-blue-700">{item.diff_summary}</p>
+                    <div className="p-3 border-b border-border bg-muted/20">
+                      <p className="font-mono text-xs text-primary">{item.diff_summary}</p>
                     </div>
                   )}
 
                   {/* Original Content */}
-                  <div className="p-4 border-b border-black">
-                    <div className="font-mono text-xs uppercase tracking-wider text-steel-grey mb-2 flex items-center gap-2">
-                      <span className="w-3 h-3 bg-red-600 border border-black" />
+                  <div className="p-4 border-b border-border">
+                    <div className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-2">
+                      <span className="w-3 h-3 bg-destructive border border-border" />
                       {t('builder.regenerate.diffPreview.originalLabel')}
                     </div>
-                    <div className="border-2 border-black bg-white p-3 space-y-1">
+                    <div className="border border-border bg-muted/30 p-3 space-y-1">
                       {item.original_content.length > 0 ? (
                         item.original_content.map((content, idx) => (
-                          <p key={idx} className="text-sm text-red-700 line-through">
+                          <p key={idx} className="text-sm text-destructive line-through">
                             <span className="font-mono mr-2">−</span>
                             {content}
                           </p>
                         ))
                       ) : (
-                        <p className="text-sm text-steel-grey italic">
+                        <p className="text-sm text-muted-foreground italic">
                           {t('builder.regenerate.diffPreview.noContent')}
                         </p>
                       )}
@@ -229,20 +229,20 @@ export const RegenerateDiffPreview: React.FC<RegenerateDiffPreviewProps> = ({
 
                   {/* New Content */}
                   <div className="p-4">
-                    <div className="font-mono text-xs uppercase tracking-wider text-steel-grey mb-2 flex items-center gap-2">
-                      <span className="w-3 h-3 bg-green-700 border border-black" />
+                    <div className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-2">
+                      <span className="w-3 h-3 bg-emerald-600 border border-border" />
                       {t('builder.regenerate.diffPreview.newLabel')}
                     </div>
-                    <div className="border-2 border-black bg-white p-3 space-y-1">
+                    <div className="border border-border bg-muted/30 p-3 space-y-1">
                       {item.new_content.length > 0 ? (
                         item.new_content.map((content, idx) => (
-                          <p key={idx} className="text-sm text-green-700">
+                          <p key={idx} className="text-sm text-emerald-600 dark:text-emerald-400">
                             <span className="font-mono mr-2">+</span>
                             {content}
                           </p>
                         ))
                       ) : (
-                        <p className="text-sm text-steel-grey italic">
+                        <p className="text-sm text-muted-foreground italic">
                           {t('builder.regenerate.diffPreview.noContent')}
                         </p>
                       )}
@@ -254,12 +254,12 @@ export const RegenerateDiffPreview: React.FC<RegenerateDiffPreviewProps> = ({
           ))}
         </div>
 
-        <DialogFooter className="p-4 bg-secondary border-t border-black flex-row justify-between gap-3">
+        <DialogFooter className="p-4 bg-secondary border-t border-border flex-row justify-between gap-3">
           <Button
             variant="outline"
             onClick={onReject}
             disabled={isApplying}
-            className="rounded-none border-black"
+            className="rounded-none border-border"
           >
             <RefreshCw className="w-4 h-4 mr-2" />
             {t('builder.regenerate.diffPreview.rejectButton')}

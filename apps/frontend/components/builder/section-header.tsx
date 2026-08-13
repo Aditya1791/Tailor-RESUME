@@ -164,7 +164,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 text-steel-grey"
+              className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted"
               onClick={onToggleVisibility}
               aria-label={
                 section.isVisible
@@ -187,7 +187,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 text-steel-grey hover:text-ink-soft disabled:opacity-30"
+              className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted disabled:opacity-30"
               onClick={onMoveUp}
               disabled={isFirst}
               aria-label={t('builder.sectionHeader.moveUp')}
@@ -202,7 +202,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 text-steel-grey hover:text-ink-soft disabled:opacity-30"
+              className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted disabled:opacity-30"
               onClick={onMoveDown}
               disabled={isLast}
               aria-label={t('builder.sectionHeader.moveDown')}

@@ -260,11 +260,11 @@ export function ResumeWizardPage() {
   };
 
   return (
-    <main className="min-h-screen bg-background px-4 py-6 text-black md:px-8 md:py-10">
+    <main className="min-h-screen bg-background px-4 py-6 text-foreground md:px-8 md:py-10">
       <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
         <div className="grid gap-4">
           <div className="flex items-center justify-between">
-            <h1 className="font-mono text-xs font-bold uppercase tracking-wider text-steel-grey">
+            <h1 className="font-mono text-xs font-bold uppercase tracking-wider text-muted-foreground">
               {t('resumeWizard.title')}
             </h1>
             <Button type="button" variant="ghost" onClick={() => router.push('/dashboard')}>

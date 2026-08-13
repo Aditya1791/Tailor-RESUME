@@ -341,7 +341,7 @@ export function KanbanBoard() {
       {/* Stage rail — an always-visible map of every stage (with counts) so
           off-screen sections are never lost; click a stage to jump to it. */}
       {!isEmpty && (
-        <div className="flex shrink-0 items-center gap-3 overflow-x-auto border-t border-black bg-paper-tint px-6 py-2 md:px-8">
+        <div className="flex shrink-0 items-center gap-3 overflow-x-auto border-t border-border bg-secondary/40 px-6 py-2 md:px-8">
           {canScrollRight && (
             <span className="flex shrink-0 items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-wide text-primary">
               {t('tracker.scroll.hint')}
@@ -354,10 +354,10 @@ export function KanbanBoard() {
                 key={status}
                 type="button"
                 onClick={() => scrollToColumn(status)}
-                className="flex shrink-0 items-center gap-1.5 border border-black bg-background px-2 py-1 font-mono text-[11px] uppercase tracking-wide text-ink-soft shadow-sw-xs transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:text-primary hover:shadow-none"
+                className="flex shrink-0 items-center gap-1.5 border border-border bg-card px-2 py-1 font-mono text-[11px] uppercase tracking-wide text-foreground shadow-sw-xs transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:border-primary hover:text-primary hover:shadow-none"
               >
                 {t(`tracker.columns.${status}`)}
-                <span className="text-steel-grey">{columns[status].length}</span>
+                <span className="text-muted-foreground">{columns[status].length}</span>
               </button>
             ))}
           </div>

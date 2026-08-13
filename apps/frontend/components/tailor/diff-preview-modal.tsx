@@ -63,22 +63,22 @@ export function DiffPreviewModal({
           }
         }}
       >
-        <DialogContent className="max-w-5xl max-h-[90vh] overflow-hidden flex flex-col p-6 bg-background border-2 border-black shadow-sw-lg">
-          <DialogHeader className="border-b-2 border-black pb-4 bg-white -mx-6 -mt-6 px-6 pt-6">
-            <DialogTitle className="font-serif text-2xl font-bold uppercase tracking-tight">
+        <DialogContent className="max-w-5xl max-h-[90vh] overflow-hidden flex flex-col p-6 bg-card text-foreground border-2 border-border shadow-sw-lg">
+          <DialogHeader className="border-b-2 border-border pb-4 bg-card -mx-6 -mt-6 px-6 pt-6">
+            <DialogTitle className="font-serif text-2xl font-bold uppercase tracking-tight text-foreground">
               {t('tailor.missingDiffDialog.title')}
             </DialogTitle>
           </DialogHeader>
 
-          <div className="mt-6 border-2 border-black bg-white p-4 font-mono text-xs text-ink-soft">
+          <div className="mt-6 border-2 border-border bg-muted/30 p-4 font-mono text-xs text-foreground">
             {t('tailor.missingDiffDialog.description')}
           </div>
-          <div className="mt-3 flex items-center gap-2 font-mono text-xs text-amber-700">
+          <div className="mt-3 flex items-center gap-2 font-mono text-xs text-warning">
             <AlertTriangle className="w-4 h-4" />
             <span>{t('tailor.missingDiffDialog.confirmLabel')}</span>
           </div>
 
-          <div className="flex justify-end items-center gap-3 pt-4 border-t-2 border-black bg-white -mx-6 -mb-6 px-6 py-4">
+          <div className="flex justify-end items-center gap-3 pt-4 border-t-2 border-border bg-secondary -mx-6 -mb-6 px-6 py-4">
             <Button variant="outline" onClick={onClose} disabled={isConfirming} className="gap-2">
               {t('common.cancel')}
             </Button>
@@ -128,22 +128,22 @@ export function DiffPreviewModal({
         }
       }}
     >
-      <DialogContent className="max-w-5xl max-h-[90vh] overflow-hidden flex flex-col p-6 bg-background border-2 border-black shadow-sw-lg">
-        <DialogHeader className="border-b-2 border-black pb-4 bg-white -mx-6 -mt-6 px-6 pt-6">
-          <DialogTitle className="font-serif text-2xl font-bold uppercase tracking-tight">
+      <DialogContent className="max-w-5xl max-h-[90vh] overflow-hidden flex flex-col p-6 bg-card text-foreground border-2 border-border shadow-sw-lg">
+        <DialogHeader className="border-b-2 border-border pb-4 bg-card -mx-6 -mt-6 px-6 pt-6">
+          <DialogTitle className="font-serif text-2xl font-bold uppercase tracking-tight text-foreground">
             {t('tailor.diffModal.title')}
           </DialogTitle>
-          <p className="font-mono text-xs text-ink-soft mt-2">
+          <p className="font-mono text-xs text-muted-foreground mt-2">
             {'// '}
             {t('tailor.diffModal.subtitle')}
           </p>
         </DialogHeader>
 
         {/* Summary cards */}
-        <div className="border-2 border-black bg-white p-4 mt-4">
+        <div className="border-2 border-border bg-card p-4 mt-4 text-foreground">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-3 h-3 bg-primary"></div>
-            <h3 className="font-mono text-sm font-bold uppercase tracking-wider">
+            <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-foreground">
               {t('tailor.diffModal.summary')}
             </h3>
           </div>
@@ -177,15 +177,15 @@ export function DiffPreviewModal({
           </div>
 
           {diffSummary.high_risk_changes > 0 && (
-            <div className="mt-4 border-2 border-warning bg-[#FFF7ED] p-3 flex items-start gap-3">
+            <div className="mt-4 border-2 border-warning bg-amber-500/10 p-3 flex items-start gap-3 text-foreground">
               <AlertTriangle className="w-5 h-5 text-warning shrink-0 mt-0.5" />
               <div>
-                <p className="font-mono text-xs font-bold uppercase text-[#C2410C]">
+                <p className="font-mono text-xs font-bold uppercase text-amber-600 dark:text-amber-400">
                   {t('tailor.diffModal.warningTitle', {
                     count: diffSummary.high_risk_changes,
                   })}
                 </p>
-                <p className="font-mono text-xs text-[#C2410C] mt-1">
+                <p className="font-mono text-xs text-muted-foreground mt-1">
                   {t('tailor.diffModal.warningMessage')}
                 </p>
               </div>
@@ -194,14 +194,13 @@ export function DiffPreviewModal({
         </div>
 
         {errorMessage && (
-          <div className="mt-4 border-2 border-red-600 bg-red-50 p-3 font-mono text-xs text-red-700">
+          <div className="mt-4 border-2 border-destructive bg-destructive/10 p-3 font-mono text-xs text-destructive">
             {errorMessage}
           </div>
         )}
 
-        {/* Detailed changes list */}
-        <div className="flex-1 min-h-0 overflow-y-auto mt-4 space-y-4">
-          {/* Summary changes */}
+        {/* Changes list */}
+        <div className="flex-1 overflow-y-auto mt-4 space-y-4 pr-1">
           {summaryChanges.length > 0 && (
             <ChangeSection
               title={t('tailor.diffModal.summaryChanges')}
@@ -215,7 +214,6 @@ export function DiffPreviewModal({
             </ChangeSection>
           )}
 
-          {/* Skill changes */}
           {skillChanges.length > 0 && (
             <ChangeSection
               title={t('tailor.diffModal.skillChanges')}
@@ -229,7 +227,6 @@ export function DiffPreviewModal({
             </ChangeSection>
           )}
 
-          {/* Experience changes */}
           {experienceChanges.length > 0 && (
             <ChangeSection
               title={t('tailor.diffModal.experienceChanges')}
@@ -243,7 +240,6 @@ export function DiffPreviewModal({
             </ChangeSection>
           )}
 
-          {/* Description changes */}
           {descChanges.length > 0 && (
             <ChangeSection
               title={t('tailor.diffModal.descriptionChanges')}
@@ -257,7 +253,6 @@ export function DiffPreviewModal({
             </ChangeSection>
           )}
 
-          {/* Education changes */}
           {educationChanges.length > 0 && (
             <ChangeSection
               title={t('tailor.diffModal.educationChanges')}
@@ -271,13 +266,12 @@ export function DiffPreviewModal({
             </ChangeSection>
           )}
 
-          {/* Project changes */}
           {projectChanges.length > 0 && (
             <ChangeSection
               title={t('tailor.diffModal.projectChanges')}
               count={projectChanges.length}
-              isExpanded={expandedSections.has('project')}
-              onToggle={() => toggleSection('project')}
+              isExpanded={expandedSections.has('projects')}
+              onToggle={() => toggleSection('projects')}
             >
               {projectChanges.map((change, idx) => (
                 <ChangeItem key={idx} change={change} />
@@ -285,7 +279,6 @@ export function DiffPreviewModal({
             </ChangeSection>
           )}
 
-          {/* Certification changes */}
           {certChanges.length > 0 && (
             <ChangeSection
               title={t('tailor.diffModal.certificationChanges')}
@@ -299,7 +292,6 @@ export function DiffPreviewModal({
             </ChangeSection>
           )}
 
-          {/* Language changes */}
           {languageChanges.length > 0 && (
             <ChangeSection
               title={t('tailor.diffModal.languageChanges')}
@@ -313,7 +305,6 @@ export function DiffPreviewModal({
             </ChangeSection>
           )}
 
-          {/* Award changes */}
           {awardChanges.length > 0 && (
             <ChangeSection
               title={t('tailor.diffModal.awardChanges')}
@@ -329,19 +320,19 @@ export function DiffPreviewModal({
         </div>
 
         {/* Action buttons */}
-        <div className="flex justify-between items-center pt-4 border-t-2 border-black bg-white -mx-6 -mb-6 px-6 py-4">
-          <Button variant="outline" onClick={onReject} disabled={isConfirming} className="gap-2">
+        <div className="flex justify-between items-center pt-4 border-t-2 border-border bg-secondary -mx-6 -mb-6 px-6 py-4">
+          <Button variant="outline" onClick={onReject} disabled={isConfirming} className="gap-2 border-border">
             <X className="w-4 h-4" />
             {t('tailor.diffModal.rejectButton')}
           </Button>
           <div className="flex items-center gap-3">
             {isConfirming && elapsed > 0 && (
-              <span className="font-mono text-xs text-steel-grey">{elapsed}s</span>
+              <span className="font-mono text-xs text-muted-foreground">{elapsed}s</span>
             )}
             <Button
               onClick={onConfirm}
               disabled={isConfirming}
-              className="gap-2 bg-success hover:bg-green-800"
+              className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white"
             >
               {isConfirming ? (
                 <>
@@ -371,10 +362,10 @@ interface StatCardProps {
 
 function StatCard({ label, value, variant }: StatCardProps) {
   const colors = {
-    success: 'border-success bg-[#F0FDF4] text-success',
-    warning: 'border-warning bg-[#FFF7ED] text-warning',
-    danger: 'border-destructive bg-[#FEF2F2] text-destructive',
-    info: 'border-primary bg-[#EFF6FF] text-primary',
+    success: 'border-emerald-600/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+    warning: 'border-amber-600/30 bg-amber-500/10 text-amber-600 dark:text-amber-400',
+    danger: 'border-destructive/30 bg-destructive/10 text-destructive',
+    info: 'border-primary/30 bg-primary/10 text-primary',
   };
 
   return (
@@ -396,20 +387,20 @@ interface ChangeSectionProps {
 
 function ChangeSection({ title, count, isExpanded, onToggle, children }: ChangeSectionProps) {
   return (
-    <div className="border-2 border-black bg-white">
+    <div className="border-2 border-border bg-card text-foreground">
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between p-3 hover:bg-paper-tint"
+        className="w-full flex items-center justify-between p-3 hover:bg-muted text-foreground transition-colors"
       >
         <div className="flex items-center gap-2">
-          {isExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
-          <span className="font-mono text-sm font-bold uppercase tracking-wider">
+          {isExpanded ? <ChevronDown className="w-4 h-4 text-muted-foreground" /> : <ChevronRight className="w-4 h-4 text-muted-foreground" />}
+          <span className="font-mono text-sm font-bold uppercase tracking-wider text-foreground">
             {title} ({count})
           </span>
         </div>
       </button>
 
-      {isExpanded && <div className="border-t-2 border-black p-4 space-y-3">{children}</div>}
+      {isExpanded && <div className="border-t-2 border-border p-4 space-y-3 bg-muted/10">{children}</div>}
     </div>
   );
 }
@@ -425,13 +416,13 @@ function ChangeItem({ change }: ChangeItemProps) {
   // overused dashboard "design touch". The leading +/-/~ glyph carries the
   // semantic load and the bg tint reinforces it.
   const typeBackgrounds = {
-    added: 'bg-[#F0FDF4]',
-    removed: 'bg-[#FEF2F2]',
-    modified: 'bg-[#EFF6FF]',
+    added: 'bg-emerald-500/10 border-emerald-500/30',
+    removed: 'bg-destructive/10 border-destructive/30',
+    modified: 'bg-primary/10 border-primary/30',
   };
 
   const typeGlyphColors = {
-    added: 'text-success',
+    added: 'text-emerald-600 dark:text-emerald-400',
     removed: 'text-destructive',
     modified: 'text-primary',
   };
@@ -443,7 +434,7 @@ function ChangeItem({ change }: ChangeItemProps) {
   };
 
   return (
-    <div className={`p-3 border border-black ${typeBackgrounds[change.change_type]}`}>
+    <div className={`p-3 border ${typeBackgrounds[change.change_type]}`}>
       <div className="flex items-start gap-2">
         <span
           className={`font-mono text-base font-bold uppercase tracking-wider ${typeGlyphColors[change.change_type]}`}
@@ -458,7 +449,7 @@ function ChangeItem({ change }: ChangeItemProps) {
             </div>
           )}
           {change.new_value && (
-            <div className="text-ink-soft font-mono text-sm">{change.new_value}</div>
+            <div className="text-foreground font-mono text-sm">{change.new_value}</div>
           )}
         </div>
         {change.change_type === 'added' && change.confidence === 'high' && (

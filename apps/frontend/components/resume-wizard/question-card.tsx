@@ -65,9 +65,9 @@ export function QuestionCard({
   };
 
   return (
-    <section className="border-2 border-black bg-white shadow-sw-lg">
+    <section className="border-2 border-border bg-card text-foreground shadow-sw-lg">
       <div
-        className="flex gap-1 border-b-2 border-black p-2"
+        className="flex gap-1 border-b-2 border-border p-2 bg-secondary/50"
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={totalSegments}
@@ -78,18 +78,18 @@ export function QuestionCard({
             key={index}
             className={
               index < progress.current
-                ? 'h-1.5 flex-1 border border-black bg-black'
-                : 'h-1.5 flex-1 border border-black bg-white'
+                ? 'h-1.5 flex-1 border border-border bg-primary'
+                : 'h-1.5 flex-1 border border-border bg-background'
             }
           />
         ))}
       </div>
 
       <div className="grid gap-6 p-5 md:p-8">
-        <p className="font-mono text-xs font-bold uppercase tracking-wider text-blue-700">
+        <p className="font-mono text-xs font-bold uppercase tracking-wider text-primary">
           {sectionLabel}
         </p>
-        <h2 className="font-serif text-3xl font-bold leading-tight md:text-4xl">{question}</h2>
+        <h2 className="font-serif text-3xl font-bold leading-tight md:text-4xl text-foreground">{question}</h2>
 
         {isReview ? (
           warnings.length > 0 && (
@@ -97,7 +97,7 @@ export function QuestionCard({
               {warnings.map((warning, index) => (
                 <li
                   key={index}
-                  className="border border-steel-grey bg-white px-3 py-2 font-sans text-sm text-steel-grey"
+                  className="border border-border bg-muted/40 px-3 py-2 font-sans text-sm text-muted-foreground"
                 >
                   {warning}
                 </li>
@@ -108,7 +108,7 @@ export function QuestionCard({
           <div className="grid gap-2">
             <label
               htmlFor="resume-wizard-answer"
-              className="font-mono text-xs font-bold uppercase tracking-wider text-steel-grey"
+              className="font-mono text-xs font-bold uppercase tracking-wider text-muted-foreground"
             >
               {t('resumeWizard.answerLabel')}
             </label>
@@ -118,19 +118,19 @@ export function QuestionCard({
               onChange={(event) => onAnswerChange(event.target.value)}
               onKeyDown={handleKeyDown}
               disabled={isBusy}
-              className="min-h-40 bg-white font-sans text-base"
+              className="min-h-40 bg-background text-foreground font-sans text-base border-border"
             />
           </div>
         )}
 
         {isQuestion && isComplete && (
-          <p className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-green-700">
-            <span aria-hidden="true" className="inline-block h-3 w-3 bg-green-700" />
+          <p className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+            <span aria-hidden="true" className="inline-block h-3 w-3 bg-emerald-600 dark:bg-emerald-400" />
             {t('resumeWizard.readyHint')}
           </p>
         )}
 
-        <div className="flex flex-wrap gap-3 border-t-2 border-black pt-5">
+        <div className="flex flex-wrap gap-3 border-t-2 border-border pt-5">
           {isReview ? (
             <>
               <Button

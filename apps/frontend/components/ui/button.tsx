@@ -114,7 +114,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         'bg-background text-foreground',
         'border border-border',
         'shadow-sw-sm',
-        'hover:bg-muted',
+        'hover:bg-muted hover:text-foreground',
         'hover:translate-y-[1px] hover:translate-x-[1px] hover:shadow-none',
         'active:translate-y-[2px] active:translate-x-[2px]'
       ),
@@ -124,7 +124,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         'bg-secondary text-foreground',
         'border border-border',
         'shadow-sw-sm',
-        'hover:bg-muted',
+        'hover:bg-muted hover:text-foreground',
         'hover:translate-y-[1px] hover:translate-x-[1px] hover:shadow-none',
         'active:translate-y-[2px] active:translate-x-[2px]'
       ),
@@ -133,13 +133,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       ghost: cn(
         'bg-transparent text-foreground',
         'border-none shadow-none',
-        'hover:bg-muted',
-        'active:bg-muted'
+        'hover:bg-muted hover:text-foreground',
+        'active:bg-muted active:text-foreground'
       ),
 
       // LINK
       link: cn(
-        'bg-transparent text-primary',
+        'bg-transparent text-primary hover:text-primary/90',
         'border-none shadow-none',
         'underline-offset-4 hover:underline',
         'p-0 h-auto'

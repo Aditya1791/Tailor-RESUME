@@ -147,7 +147,7 @@ const DialogContent: React.FC<DialogContentProps> = ({ children, className }) =>
           aria-labelledby={titleId}
           className={cn(
             'relative w-full max-w-lg',
-            'border border-black bg-background shadow-sw-lg',
+            'border border-border bg-card text-foreground shadow-sw-lg',
             'rounded-none',
             'animate-in fade-in-0 zoom-in-95 duration-200',
             className
@@ -157,7 +157,7 @@ const DialogContent: React.FC<DialogContentProps> = ({ children, className }) =>
           {children}
           <button
             onClick={() => onOpenChange(false)}
-            className="absolute right-4 top-4 opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2"
+            className="absolute right-4 top-4 text-muted-foreground opacity-70 transition-opacity hover:opacity-100 hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
           >
             <X className="h-5 w-5" />
             <span className="sr-only">{t('common.close')}</span>
@@ -204,7 +204,7 @@ const DialogTitle: React.FC<DialogTitleProps> = ({ className, children, ...props
   return (
     <h2
       id={titleId}
-      className={cn('font-serif text-lg font-bold leading-none tracking-tight', className)}
+      className={cn('font-serif text-lg font-bold leading-none tracking-tight text-foreground', className)}
       {...props}
     >
       {children}
@@ -218,7 +218,7 @@ interface DialogDescriptionProps {
 }
 
 const DialogDescription: React.FC<DialogDescriptionProps> = ({ className, children, ...props }) => (
-  <p className={cn('text-sm text-ink-soft', className)} {...props}>
+  <p className={cn('text-sm text-muted-foreground', className)} {...props}>
     {children}
   </p>
 );

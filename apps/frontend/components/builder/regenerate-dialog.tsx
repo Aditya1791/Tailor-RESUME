@@ -74,49 +74,49 @@ export const RegenerateDialog: React.FC<RegenerateDialogProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[600px] p-0 gap-0 rounded-none">
-        <DialogHeader className="p-6 pb-4 border-b border-black">
-          <DialogTitle className="font-serif text-xl font-bold uppercase tracking-tight">
+      <DialogContent className="sm:max-w-[600px] p-0 gap-0 rounded-none bg-card text-foreground border border-border">
+        <DialogHeader className="p-6 pb-4 border-b border-border">
+          <DialogTitle className="font-serif text-xl font-bold uppercase tracking-tight text-foreground">
             {t('builder.regenerate.selectDialog.title')}
           </DialogTitle>
-          <DialogDescription className="font-mono text-xs text-ink-soft mt-2">
+          <DialogDescription className="font-mono text-xs text-muted-foreground mt-2">
             {t('builder.regenerate.selectDialog.subtitle')}
           </DialogDescription>
         </DialogHeader>
 
         <div className="p-6 space-y-4 max-h-[50vh] overflow-y-auto">
           {!hasItems && (
-            <div className="text-center py-8 text-steel-grey font-mono text-sm">
+            <div className="text-center py-8 text-muted-foreground font-mono text-sm">
               {t('builder.regenerate.selectDialog.noItemsAvailable')}
             </div>
           )}
 
           {/* Experience Section */}
           {experienceItems.length > 0 && (
-            <div className="border border-black">
+            <div className="border border-border">
               <button
                 type="button"
                 onClick={() => toggleSection('experience')}
                 aria-expanded={expandedSections.has('experience')}
-                className="w-full p-4 flex items-center justify-between bg-background hover:bg-secondary transition-colors"
+                className="w-full p-4 flex items-center justify-between bg-card hover:bg-muted transition-colors text-foreground"
               >
                 <div className="flex items-center gap-3">
-                  <Briefcase className="w-5 h-5" />
+                  <Briefcase className="w-5 h-5 text-primary" />
                   <span className="font-mono text-sm uppercase tracking-wider font-medium">
                     {t('builder.regenerate.selectDialog.experience')}
                   </span>
-                  <span className="font-mono text-xs text-steel-grey">
+                  <span className="font-mono text-xs text-muted-foreground">
                     ({experienceItems.length})
                   </span>
                 </div>
                 {expandedSections.has('experience') ? (
-                  <ChevronDown className="w-4 h-4" />
+                  <ChevronDown className="w-4 h-4 text-muted-foreground" />
                 ) : (
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
                 )}
               </button>
               {expandedSections.has('experience') && (
-                <div className="border-t border-black">
+                <div className="border-t border-border">
                   {experienceItems.map((item) => (
                     <ItemRow
                       key={item.item_id}
@@ -132,28 +132,28 @@ export const RegenerateDialog: React.FC<RegenerateDialogProps> = ({
 
           {/* Projects Section */}
           {projectItems.length > 0 && (
-            <div className="border border-black">
+            <div className="border border-border">
               <button
                 type="button"
                 onClick={() => toggleSection('projects')}
                 aria-expanded={expandedSections.has('projects')}
-                className="w-full p-4 flex items-center justify-between bg-background hover:bg-secondary transition-colors"
+                className="w-full p-4 flex items-center justify-between bg-card hover:bg-muted transition-colors text-foreground"
               >
                 <div className="flex items-center gap-3">
-                  <FolderKanban className="w-5 h-5" />
+                  <FolderKanban className="w-5 h-5 text-primary" />
                   <span className="font-mono text-sm uppercase tracking-wider font-medium">
                     {t('builder.regenerate.selectDialog.projects')}
                   </span>
-                  <span className="font-mono text-xs text-steel-grey">({projectItems.length})</span>
+                  <span className="font-mono text-xs text-muted-foreground">({projectItems.length})</span>
                 </div>
                 {expandedSections.has('projects') ? (
-                  <ChevronDown className="w-4 h-4" />
+                  <ChevronDown className="w-4 h-4 text-muted-foreground" />
                 ) : (
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
                 )}
               </button>
               {expandedSections.has('projects') && (
-                <div className="border-t border-black">
+                <div className="border-t border-border">
                   {projectItems.map((item) => (
                     <ItemRow
                       key={item.item_id}
@@ -169,27 +169,27 @@ export const RegenerateDialog: React.FC<RegenerateDialogProps> = ({
 
           {/* Skills Section */}
           {skillsItem && (
-            <div className="border border-black">
+            <div className="border border-border">
               <button
                 type="button"
                 onClick={() => toggleSection('skills')}
                 aria-expanded={expandedSections.has('skills')}
-                className="w-full p-4 flex items-center justify-between bg-background hover:bg-secondary transition-colors"
+                className="w-full p-4 flex items-center justify-between bg-card hover:bg-muted transition-colors text-foreground"
               >
                 <div className="flex items-center gap-3">
-                  <Lightbulb className="w-5 h-5" />
+                  <Lightbulb className="w-5 h-5 text-primary" />
                   <span className="font-mono text-sm uppercase tracking-wider font-medium">
                     {t('builder.regenerate.selectDialog.skills')}
                   </span>
                 </div>
                 {expandedSections.has('skills') ? (
-                  <ChevronDown className="w-4 h-4" />
+                  <ChevronDown className="w-4 h-4 text-muted-foreground" />
                 ) : (
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
                 )}
               </button>
               {expandedSections.has('skills') && (
-                <div className="border-t border-black">
+                <div className="border-t border-border">
                   <ItemRow
                     item={skillsItem}
                     isSelected={isSelected(skillsItem)}
@@ -201,9 +201,9 @@ export const RegenerateDialog: React.FC<RegenerateDialogProps> = ({
           )}
         </div>
 
-        <DialogFooter className="p-4 bg-secondary border-t border-black flex-row justify-end gap-3">
+        <DialogFooter className="p-4 bg-secondary border-t border-border flex-row justify-end gap-3">
           <DialogClose asChild>
-            <Button variant="outline" className="rounded-none border-black">
+            <Button variant="outline" className="rounded-none border-border">
               {t('common.cancel')}
             </Button>
           </DialogClose>
@@ -243,14 +243,14 @@ const ItemRow: React.FC<ItemRowProps> = ({ item, isSelected, onToggle }) => {
     <button
       type="button"
       onClick={onToggle}
-      className={`w-full p-4 flex items-center gap-4 text-left transition-colors ${
-        isSelected ? 'bg-blue-50' : 'bg-white hover:bg-paper-tint'
+      className={`w-full p-4 flex items-center gap-4 text-left transition-colors border-b last:border-b-0 border-border ${
+        isSelected ? 'bg-primary/10 text-primary' : 'bg-card text-foreground hover:bg-muted'
       }`}
     >
       {/* Checkbox */}
       <div
         className={`w-5 h-5 border-2 flex items-center justify-center transition-colors ${
-          isSelected ? 'border-blue-700 bg-blue-700' : 'border-black bg-white'
+          isSelected ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-background'
         }`}
       >
         {isSelected && (
@@ -262,14 +262,14 @@ const ItemRow: React.FC<ItemRowProps> = ({ item, isSelected, onToggle }) => {
 
       {/* Item Info */}
       <div className="flex-1 min-w-0">
-        <div className="font-sans font-medium text-sm truncate">{item.title}</div>
+        <div className="font-sans font-medium text-sm truncate text-foreground">{item.title}</div>
         {item.subtitle && (
-          <div className="font-mono text-xs text-steel-grey truncate">{item.subtitle}</div>
+          <div className="font-mono text-xs text-muted-foreground truncate">{item.subtitle}</div>
         )}
       </div>
 
       {/* Content preview */}
-      <div className="font-mono text-xs text-steel-grey">{itemCountLabel}</div>
+      <div className="font-mono text-xs text-muted-foreground">{itemCountLabel}</div>
     </button>
   );
 };

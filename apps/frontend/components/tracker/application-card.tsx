@@ -52,7 +52,7 @@ export function ApplicationCard({
             onChange={() => onToggleSelect(application.application_id)}
             onClick={(e) => e.stopPropagation()}
             aria-label={t('tracker.card.selectAria')}
-            className="mt-1 h-4 w-4 shrink-0 rounded-none border-black accent-primary"
+            className="mt-1 h-4 w-4 shrink-0 rounded-none border-border accent-primary"
           />
 
           <button
@@ -60,20 +60,20 @@ export function ApplicationCard({
             onClick={() => onOpen(application.application_id)}
             className="min-w-0 flex-1 text-left"
           >
-            <p className="truncate text-sm font-semibold text-ink">
+            <p className="truncate text-sm font-semibold text-foreground">
               {company || t('tracker.card.companyUnknown')}
             </p>
-            <p className="truncate font-mono text-xs text-ink-soft">
+            <p className="truncate font-mono text-xs text-muted-foreground">
               {role || t('tracker.card.roleUnknown')}
             </p>
             {application.applied_at && (
-              <p className="mt-1 font-mono text-[10px] uppercase tracking-wide text-steel-grey">
+              <p className="mt-1 font-mono text-[10px] uppercase tracking-wide text-muted-foreground">
                 {new Date(application.applied_at).toLocaleDateString()}
               </p>
             )}
             {sharedResume && (
-              <span className="mt-1 inline-flex items-center gap-1 border border-black bg-paper-tint px-1 font-mono text-[10px] uppercase text-ink-soft">
-                <Layers className="h-3 w-3" />
+              <span className="mt-1 inline-flex items-center gap-1 border border-border bg-muted/60 px-1 font-mono text-[10px] uppercase text-muted-foreground">
+                <Layers className="h-3 w-3 text-primary" />
                 {t('tracker.card.sharedResume')}
               </span>
             )}
@@ -81,7 +81,7 @@ export function ApplicationCard({
 
           <button
             type="button"
-            className="mt-0.5 shrink-0 cursor-grab text-steel-grey hover:text-ink active:cursor-grabbing"
+            className="mt-0.5 shrink-0 cursor-grab text-muted-foreground hover:text-foreground active:cursor-grabbing"
             aria-label={t('tracker.card.dragAria')}
             {...attributes}
             {...listeners}
