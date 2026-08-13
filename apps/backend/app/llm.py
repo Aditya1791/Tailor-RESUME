@@ -958,6 +958,14 @@ def _appears_truncated(data: dict, schema_type: str = "resume") -> bool:
             return True
         return False
 
+    if schema_type == "resume_wizard":
+        if "resume_data" not in data or "next_question" not in data:
+            logging.warning(
+                "Possible truncation detected: resume_wizard missing required keys"
+            )
+            return True
+        return False
+
     if schema_type == "interview_prep":
         required = {
             "role_fit_analysis",
@@ -1284,6 +1292,10 @@ async def complete_json(
                     elif schema_type == "enrichment":
                         hint = (
                             "\n\nIMPORTANT: Output the COMPLETE JSON object with ALL keys: items_to_enrich, questions, analysis_summary. Do not truncate."
+                        )
+                    elif schema_type == "resume_wizard":
+                        hint = (
+                            "\n\nIMPORTANT: Output the COMPLETE JSON object with 'resume_data' and 'next_question'. Do not truncate."
                         )
                     elif schema_type == "interview_prep":
                         hint = (

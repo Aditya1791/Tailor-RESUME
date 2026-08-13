@@ -57,12 +57,21 @@ async def resume_wizard_turn(
         raise
     except ValueError as e:
         logger.error("Resume wizard turn validation failed: %s", e)
-        raise HTTPException(status_code=422, detail="Could not update the resume draft.")
+        raise HTTPException(status_code=422, detail="Could not update the resume draft. Please check your input.")
     except Exception as e:
         logger.error("Resume wizard turn failed: %s", e)
+        error_msg = str(e)
+        if "API key" in error_msg or "authentication" in error_msg.lower() or "auth" in error_msg.lower() or "401" in error_msg:
+            detail = "LLM authentication failed. Please verify your API key in Settings."
+        elif "connection" in error_msg.lower() or "timeout" in error_msg.lower() or "connect" in error_msg.lower():
+            detail = "Could not connect to the AI model. Please check your network and LLM settings."
+        elif len(error_msg) > 0 and len(error_msg) < 160:
+            detail = f"AI turn failed: {error_msg}"
+        else:
+            detail = "Resume wizard turn failed. Please check your LLM configuration in Settings."
         raise HTTPException(
             status_code=500,
-            detail="Resume wizard failed. Please try again.",
+            detail=detail,
         )
 
 

@@ -357,7 +357,7 @@ async def run_ai_turn(
         resume_json=resume_json,
         answer_text=prompt_answer,
     )
-    result = await complete_json(prompt, max_tokens=8192, schema_type="resume")
+    result = await complete_json(prompt, max_tokens=8192, schema_type="resume_wizard")
     if not isinstance(result, dict):
         raise ValueError("Resume wizard LLM response must be a JSON object.")
 

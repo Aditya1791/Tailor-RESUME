@@ -176,6 +176,7 @@ export function ResumeWizardPage() {
   const [state, setState] = useState<ResumeWizardState>(() => createInitialResumeWizardState());
   const [answer, setAnswer] = useState('');
   const [errorKey, setErrorKey] = useState<string | null>(null);
+  const [errorDetail, setErrorDetail] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isBusy, setIsBusy] = useState(false);
 
@@ -203,6 +204,7 @@ export function ResumeWizardPage() {
     withAnswer: boolean
   ) => {
     setErrorKey(null);
+    setErrorDetail(null);
     setIsBusy(true);
     try {
       const response = await postResumeWizardTurn({
@@ -212,8 +214,21 @@ export function ResumeWizardPage() {
       });
       setState(response.state);
       setAnswer('');
-    } catch {
+    } catch (err: unknown) {
       setErrorKey(errorTranslationKey);
+      const msg = err instanceof Error ? err.message : '';
+      if (msg) {
+        try {
+          const parsed = JSON.parse(msg);
+          if (parsed.detail) {
+            setErrorDetail(parsed.detail);
+          }
+        } catch {
+          if (msg !== 'boom' && !msg.startsWith('Resume wizard turn failed with status')) {
+            setErrorDetail(msg);
+          }
+        }
+      }
     } finally {
       setIsBusy(false);
     }
@@ -240,6 +255,7 @@ export function ResumeWizardPage() {
 
   const handleFinalize = async () => {
     setErrorKey(null);
+    setErrorDetail(null);
     setIsBusy(true);
     try {
       const response = await finalizeResumeWizard(state);
@@ -252,8 +268,21 @@ export function ResumeWizardPage() {
       setHasMasterResume(true);
       setState((current) => ({ ...current, step: 'complete' }));
       router.push(`/builder?id=${response.resume_id}`);
-    } catch {
+    } catch (err: unknown) {
       setErrorKey('resumeWizard.errors.finalizeFailed');
+      const msg = err instanceof Error ? err.message : '';
+      if (msg) {
+        try {
+          const parsed = JSON.parse(msg);
+          if (parsed.detail) {
+            setErrorDetail(parsed.detail);
+          }
+        } catch {
+          if (msg !== 'boom' && !msg.startsWith('Resume wizard finalize failed with status')) {
+            setErrorDetail(msg);
+          }
+        }
+      }
     } finally {
       setIsBusy(false);
     }
@@ -273,11 +302,33 @@ export function ResumeWizardPage() {
           </div>
 
           {errorKey && (
-            <div className="border-2 border-red-600 bg-red-100 p-4" role="alert">
-              <p className="font-mono text-sm font-bold uppercase tracking-wider text-red-600">
-                {t('common.error')}
-              </p>
-              <p className="mt-1 font-sans text-sm">{t(errorKey)}</p>
+            <div className="border-2 border-destructive/40 bg-destructive/10 p-4 text-foreground shadow-sm flex flex-col gap-2 rounded-lg" role="alert">
+              <div className="flex items-center justify-between">
+                <p className="font-mono text-xs font-bold uppercase tracking-wider text-destructive">
+                  {t('common.error')}
+                </p>
+                {Boolean(errorDetail &&
+                  (errorDetail.toLowerCase().includes('setting') ||
+                    errorDetail.toLowerCase().includes('api key') ||
+                    errorDetail.toLowerCase().includes('llm') ||
+                    errorDetail.toLowerCase().includes('auth'))) && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="text-xs h-7 border-destructive/40 hover:bg-destructive/20 font-mono"
+                    onClick={() => router.push('/settings')}
+                  >
+                    {t('nav.goToSettings') || 'Go to Settings'}
+                  </Button>
+                )}
+              </div>
+              <p className="font-sans text-sm text-foreground/90">{t(errorKey)}</p>
+              {errorDetail && errorDetail !== t(errorKey) && (
+                <p className="font-mono text-xs text-muted-foreground bg-background/50 p-2 rounded border border-border">
+                  {errorDetail}
+                </p>
+              )}
             </div>
           )}
 
