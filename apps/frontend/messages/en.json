@@ -42,6 +42,9 @@
     "dashboard": "Dashboard",
     "builder": "Resume Builder",
     "tailor": "Tailor Resume",
+    "wizard": "Wizard",
+    "tracker": "Tracker",
+    "resumeWizard": "Resume Wizard",
     "settings": "Settings",
     "backToDashboard": "Back to Dashboard",
     "goToSettings": "Go to Settings",
@@ -411,9 +414,16 @@
       "accentColor": "Accent Color",
       "accentColors": {
         "blue": "Blue",
+        "indigo": "Indigo",
+        "purple": "Purple",
+        "teal": "Teal",
+        "emerald": "Emerald",
         "green": "Green",
+        "amber": "Amber",
         "orange": "Orange",
-        "red": "Red"
+        "red": "Red",
+        "rose": "Rose",
+        "slate": "Slate"
       },
       "pageSize": "Page Size",
       "margins": "Margins (mm)",
@@ -454,14 +464,14 @@
     },
     "personalInfoForm": {
       "placeholders": {
-        "name": "John Doe",
+        "name": "Aditya Ranjan Swain",
         "title": "Software Engineer",
-        "email": "john@example.com",
-        "phone": "+1 (555) 000-0000",
+        "email": "yourmail@gmail.com",
+        "phone": "+91 784688**05",
         "location": "City, Country",
         "website": "portfolio.com",
-        "linkedin": "linkedin.com/in/john",
-        "github": "github.com/john"
+        "linkedin": "linkedin.com/in/aditya-ranjan-swain",
+        "github": "github.com/Aditya1791"
       }
     },
     "leftPanel": {

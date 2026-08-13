@@ -1,3 +1,88 @@
-<svg width="40" height="40" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M346.565 168.115c29.767-13.253 64.643.135 77.896 29.903l80.991 181.909 125.509-166.555c19.61-26.023 56.603-31.222 82.626-11.612s31.223 56.602 11.613 82.626L593.328 459.384l216.425 34.279c32.184 5.097 54.141 35.319 49.044 67.503s-35.319 54.141-67.503 49.044l-197.221-31.237 77.684 174.48c13.253 29.768-.135 64.643-29.902 77.897-29.768 13.253-64.643-.134-77.897-29.902l-84.826-190.52-119.836 159.028c-19.61 26.023-56.603 31.223-82.626 11.613s-31.222-56.603-11.612-82.627L380.902 545.21l-190.123-30.112c-32.183-5.098-54.141-35.32-49.044-67.503s35.32-54.141 67.503-49.044l188.64 29.877-81.216-182.415c-13.253-29.768.135-64.644 29.903-77.898" fill="#1D4ED8"/>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A" />
+      <stop offset="50%" stop-color="#1D4ED8" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+
+    <!-- Document Primary Gradient -->
+    <linearGradient id="doc-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+
+    <!-- Accent / Spark Gradient -->
+    <linearGradient id="spark-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="50%" stop-color="#818CF8" />
+      <stop offset="100%" stop-color="#C084FC" />
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Shadow Filter -->
+    <filter id="card-shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.3" />
+    </filter>
+  </defs>
+
+  <!-- Base Rounded Container -->
+  <rect width="512" height="512" rx="112" fill="url(#bg-grad)" />
+
+  <!-- Outer Glass Ring -->
+  <rect x="16" y="16" width="480" height="480" rx="96" stroke="rgba(255, 255, 255, 0.15)" stroke-width="3" fill="none" />
+
+  <!-- Layer 1: Back Document (Folded / Angled Effect) -->
+  <rect x="130" y="100" width="220" height="290" rx="20" fill="rgba(255, 255, 255, 0.08)" stroke="rgba(255, 255, 255, 0.2)" stroke-width="2.5" transform="rotate(-6 130 100)" />
+
+  <!-- Layer 2: Main Document Card -->
+  <g filter="url(#card-shadow)">
+    <!-- Document Body -->
+    <path d="M148 116C148 102.745 158.745 92 172 92H296L364 160V388C364 401.255 353.255 412 340 412H172C158.745 412 148 401.255 148 388V116Z" fill="#0F172A" stroke="url(#doc-grad)" stroke-width="4" />
+    
+    <!-- Top-Right Fold Corner -->
+    <path d="M296 92V144C296 152.837 303.163 160 312 160H364L296 92Z" fill="url(#spark-grad)" />
+
+    <!-- Resume Content Lines -->
+    <!-- Name / Header placeholder -->
+    <rect x="180" y="140" width="88" height="12" rx="6" fill="url(#spark-grad)" />
+    <rect x="180" y="164" width="56" height="8" rx="4" fill="rgba(255, 255, 255, 0.35)" />
+
+    <!-- Divider Line -->
+    <line x1="180" y1="196" x2="332" y2="196" stroke="rgba(255, 255, 255, 0.15)" stroke-width="2" stroke-linecap="round" />
+
+    <!-- Section 1 -->
+    <rect x="180" y="218" width="50" height="9" rx="4.5" fill="#38BDF8" />
+    <rect x="180" y="238" width="140" height="7" rx="3.5" fill="rgba(255, 255, 255, 0.4)" />
+    <rect x="180" y="254" width="115" height="7" rx="3.5" fill="rgba(255, 255, 255, 0.25)" />
+
+    <!-- Section 2 -->
+    <rect x="180" y="282" width="62" height="9" rx="4.5" fill="#818CF8" />
+    <rect x="180" y="302" width="148" height="7" rx="3.5" fill="rgba(255, 255, 255, 0.4)" />
+    <rect x="180" y="318" width="125" height="7" rx="3.5" fill="rgba(255, 255, 255, 0.25)" />
+
+    <!-- Skill Chips -->
+    <rect x="180" y="348" width="38" height="14" rx="7" fill="rgba(56, 189, 248, 0.2)" stroke="#38BDF8" stroke-width="1.5" />
+    <rect x="226" y="348" width="46" height="14" rx="7" fill="rgba(129, 140, 248, 0.2)" stroke="#818CF8" stroke-width="1.5" />
+    <rect x="280" y="348" width="42" height="14" rx="7" fill="rgba(192, 132, 252, 0.2)" stroke="#C084FC" stroke-width="1.5" />
+  </g>
+
+  <!-- Layer 3: AI Sparkle / Target Match Insignia (Floating Bottom Right) -->
+  <g filter="url(#glow)">
+    <!-- Outer Floating Badge Circle -->
+    <circle cx="360" cy="360" r="54" fill="#090D16" stroke="url(#spark-grad)" stroke-width="4" />
+    
+    <!-- AI Match Star / Sparkle Icon -->
+    <path d="M360 328C360 345.673 374.327 360 392 360C374.327 360 360 374.327 360 392C360 374.327 345.673 360 328 360C345.673 360 360 345.673 360 328Z" fill="url(#spark-grad)" />
+
+    <!-- Mini Sparkles -->
+    <circle cx="330" cy="332" r="3" fill="#38BDF8" />
+    <circle cx="390" cy="388" r="2.5" fill="#C084FC" />
+  </g>
 </svg>

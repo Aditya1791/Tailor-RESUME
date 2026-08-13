@@ -42,6 +42,9 @@
     "dashboard": "대시보드",
     "builder": "이력서 빌더",
     "tailor": "이력서 맞춤화",
+    "wizard": "마법사",
+    "tracker": "지원 추적",
+    "resumeWizard": "이력서 마법사",
     "settings": "설정",
     "backToDashboard": "대시보드로 돌아가기",
     "goToSettings": "설정으로 이동",
@@ -391,9 +394,16 @@
       "accentColor": "강조 색상",
       "accentColors": {
         "blue": "파랑",
+        "indigo": "인디고",
+        "purple": "보라",
+        "teal": "청록",
+        "emerald": "에메랄드",
         "green": "초록",
+        "amber": "호박색",
         "orange": "주황",
-        "red": "빨강"
+        "red": "빨강",
+        "rose": "로즈",
+        "slate": "슬레이트"
       },
       "pageSize": "용지 크기",
       "margins": "여백 (mm)",
@@ -434,14 +444,14 @@
     },
     "personalInfoForm": {
       "placeholders": {
-        "name": "홍길동",
+        "name": "Aditya Ranjan Swain",
         "title": "소프트웨어 엔지니어",
-        "email": "john@example.com",
-        "phone": "+82 10-0000-0000",
+        "email": "yourmail@gmail.com",
+        "phone": "+91 784688**05",
         "location": "도시, 국가",
         "website": "portfolio.com",
-        "linkedin": "linkedin.com/in/john",
-        "github": "github.com/john"
+        "linkedin": "linkedin.com/in/aditya-ranjan-swain",
+        "github": "github.com/Aditya1791"
       }
     },
     "leftPanel": {

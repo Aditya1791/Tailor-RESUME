@@ -42,6 +42,9 @@
     "dashboard": "Tableau de bord",
     "builder": "Créateur de CV",
     "tailor": "Personnaliser le CV",
+    "wizard": "Assistant",
+    "tracker": "Suivi",
+    "resumeWizard": "Assistant de CV",
     "settings": "Paramètres",
     "backToDashboard": "Retour au tableau de bord",
     "goToSettings": "Accéder aux paramètres",
@@ -411,9 +414,16 @@
       "accentColor": "Couleur d'accentuation",
       "accentColors": {
         "blue": "Bleu",
+        "indigo": "Indigo",
+        "purple": "Violet",
+        "teal": "Sarcelle",
+        "emerald": "Émeraude",
         "green": "Vert",
+        "amber": "Ambre",
         "orange": "Orange",
-        "red": "Rouge"
+        "red": "Rouge",
+        "rose": "Rose",
+        "slate": "Ardoise"
       },
       "pageSize": "Format de page",
       "margins": "Marges (mm)",
@@ -454,14 +464,14 @@
     },
     "personalInfoForm": {
       "placeholders": {
-        "name": "Jean Dupont",
+        "name": "Aditya Ranjan Swain",
         "title": "Ingénieur logiciel",
-        "email": "jean@example.com",
-        "phone": "+33 6 00 00 00 00",
+        "email": "yourmail@gmail.com",
+        "phone": "+91 784688**05",
         "location": "Ville, Pays",
         "website": "portfolio.com",
-        "linkedin": "linkedin.com/in/jean",
-        "github": "github.com/jean"
+        "linkedin": "linkedin.com/in/aditya-ranjan-swain",
+        "github": "github.com/Aditya1791"
       }
     },
     "leftPanel": {

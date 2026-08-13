@@ -16,7 +16,18 @@ export type TemplateType =
 
 export type PageSize = 'A4' | 'LETTER';
 
-export type AccentColor = 'blue' | 'green' | 'orange' | 'red';
+export type AccentColor =
+  | 'blue'
+  | 'indigo'
+  | 'purple'
+  | 'teal'
+  | 'emerald'
+  | 'green'
+  | 'amber'
+  | 'orange'
+  | 'red'
+  | 'rose'
+  | 'slate';
 
 export type SpacingLevel = 1 | 2 | 3 | 4 | 5;
 
@@ -144,7 +155,7 @@ export const SECTION_HEADER_SCALE_MAP: Record<SpacingLevel, number> = {
 const CJK_FONT_STACKS: Record<string, string[]> = {
   zh: ['--font-noto-sans-sc', '--font-noto-sans-jp', '--font-noto-sans-kr'],
   ja: ['--font-noto-sans-jp', '--font-noto-sans-kr', '--font-noto-sans-sc'],
-  ko: ['--font-noto-sans-kr', '--font-noto-sans-jp', '--font-noto-sans-sc'],
+  ko: ['--font-noto-sans-kr', '--font-noto-sans-jp', '--font-noto-sans-kr'],
 };
 
 const DEFAULT_CJK_STACK = CJK_FONT_STACKS.zh;
@@ -177,9 +188,16 @@ export const ACCENT_COLOR_MAP: Record<
   { primary: string; light: string; name: string }
 > = {
   blue: { primary: '#1D4ED8', light: '#DBEAFE', name: 'Blue' },
+  indigo: { primary: '#4F46E5', light: '#E0E7FF', name: 'Indigo' },
+  purple: { primary: '#7C3AED', light: '#EDE9FE', name: 'Purple' },
+  teal: { primary: '#0D9488', light: '#CCFBF1', name: 'Teal' },
+  emerald: { primary: '#059669', light: '#D1FAE5', name: 'Emerald' },
   green: { primary: '#15803D', light: '#DCFCE7', name: 'Green' },
+  amber: { primary: '#D97706', light: '#FEF3C7', name: 'Amber' },
   orange: { primary: '#EA580C', light: '#FED7AA', name: 'Orange' },
   red: { primary: '#DC2626', light: '#FEE2E2', name: 'Red' },
+  rose: { primary: '#E11D48', light: '#FFE4E6', name: 'Rose' },
+  slate: { primary: '#334155', light: '#F1F5F9', name: 'Slate' },
 };
 
 // Compact mode multiplier (applied to spacing values only, NOT line-height)
@@ -204,8 +222,8 @@ export function settingsToCssVars(
   const marginLeft = s.margins.left;
   const marginRight = s.margins.right;
 
-  // Get accent colors for Modern template
-  const accentColors = ACCENT_COLOR_MAP[s.accentColor];
+  // Get accent colors for Modern template with safe fallback
+  const accentColors = ACCENT_COLOR_MAP[s.accentColor] || ACCENT_COLOR_MAP.blue;
 
   return {
     '--section-gap': s.compactMode

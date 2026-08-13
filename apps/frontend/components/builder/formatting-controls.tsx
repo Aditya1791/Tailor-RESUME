@@ -218,7 +218,7 @@ export const FormattingControls: React.FC<FormattingControlsProps> = ({ settings
             </div>
           </div>
 
-          {/* Accent Color Selection - Visible for Modern templates */}
+          {/* Accent Color Selection - Visible for Modern and Vivid templates */}
           {(settings.template === 'modern' ||
             settings.template === 'modern-two-column' ||
             settings.template === 'vivid') && (
@@ -226,25 +226,30 @@ export const FormattingControls: React.FC<FormattingControlsProps> = ({ settings
               <h4 className="font-mono text-xs font-bold uppercase tracking-wider mb-3 text-foreground">
                 {t('builder.formatting.accentColor')}
               </h4>
-              <div className="flex gap-2">
-                {(Object.keys(ACCENT_COLOR_MAP) as AccentColor[]).map((color) => (
-                  <button
-                    key={color}
-                    onClick={() => handleAccentColorChange(color)}
-                    className={`flex items-center gap-2 px-3 py-2 border font-mono text-xs transition-all ${
-                      settings.accentColor === color
-                        ? 'border-primary bg-primary/10 text-primary shadow-sw-xs'
-                        : 'border-border bg-card text-foreground hover:bg-muted'
-                    }`}
-                    title={t(`builder.formatting.accentColors.${color}`)}
-                  >
-                    <span
-                      className="w-4 h-4 border border-border shrink-0"
-                      style={{ backgroundColor: ACCENT_COLOR_MAP[color].primary }}
-                    />
-                    <span>{t(`builder.formatting.accentColors.${color}`)}</span>
-                  </button>
-                ))}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                {(Object.keys(ACCENT_COLOR_MAP) as AccentColor[]).map((color) => {
+                  const isSelected = settings.accentColor === color;
+                  const colorInfo = ACCENT_COLOR_MAP[color];
+                  const label = t(`builder.formatting.accentColors.${color}`) || colorInfo.name;
+                  return (
+                    <button
+                      key={color}
+                      onClick={() => handleAccentColorChange(color)}
+                      className={`flex items-center gap-2 px-2.5 py-2 border font-mono text-xs transition-all text-left rounded-sm ${
+                        isSelected
+                          ? 'border-primary bg-primary/10 text-primary font-bold shadow-sw-xs ring-1 ring-primary'
+                          : 'border-border bg-card text-foreground hover:bg-muted'
+                      }`}
+                      title={label}
+                    >
+                      <span
+                        className="w-3.5 h-3.5 rounded-full border border-black/20 shrink-0 shadow-xs"
+                        style={{ backgroundColor: colorInfo.primary }}
+                      />
+                      <span className="truncate">{label}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}

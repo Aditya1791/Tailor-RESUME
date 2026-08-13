@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from '@/lib/i18n';
 import { useTheme } from '@/lib/context/theme-context';
@@ -40,13 +41,18 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
 
   const isLlmConfigured = !statusLoading && status?.llm_configured;
 
+  const getNavLabel = (key: string, fallback: string) => {
+    const val = t(key);
+    return !val || val === key ? fallback : val;
+  };
+
   const navLinks = [
-    { href: '/dashboard', label: t('nav.dashboard') || 'Dashboard', icon: LayoutDashboard },
-    { href: '/tailor', label: t('nav.tailor') || 'Tailor', icon: Sparkles },
-    { href: '/builder', label: t('nav.builder') || 'Builder', icon: FileText },
-    { href: '/resume-wizard', label: t('nav.wizard') || 'Wizard', icon: Wand2 },
-    { href: '/tracker', label: t('nav.tracker') || 'Tracker', icon: Kanban },
-    { href: '/settings', label: t('nav.settings') || 'Settings', icon: SettingsIcon },
+    { href: '/dashboard', label: getNavLabel('nav.dashboard', 'Dashboard'), icon: LayoutDashboard },
+    { href: '/tailor', label: getNavLabel('nav.tailor', 'Tailor'), icon: Sparkles },
+    { href: '/builder', label: getNavLabel('nav.builder', 'Builder'), icon: FileText },
+    { href: '/resume-wizard', label: getNavLabel('nav.wizard', 'Wizard'), icon: Wand2 },
+    { href: '/tracker', label: getNavLabel('nav.tracker', 'Tracker'), icon: Kanban },
+    { href: '/settings', label: getNavLabel('nav.settings', 'Settings'), icon: SettingsIcon },
   ];
 
   return (
@@ -54,15 +60,22 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand */}
         <div className="flex items-center gap-6">
-          <Link href="/dashboard" className="group flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground font-mono font-black text-base shadow-sm transition-transform duration-200 group-hover:scale-105">
-              RM
+          <Link href="/dashboard" className="group flex items-center gap-3">
+            <div className="relative flex h-9 w-9 items-center justify-center rounded-xl overflow-hidden shadow-md transition-all duration-200 group-hover:scale-105 group-hover:shadow-primary/25 shrink-0">
+              <Image
+                src="/logo.svg"
+                alt="Resume Matcher Logo"
+                width={36}
+                height={36}
+                priority
+                className="h-full w-full object-contain"
+              />
             </div>
             <div className="flex flex-col">
               <span className="font-mono text-sm font-black tracking-tight text-foreground uppercase">
                 Resume Matcher
               </span>
-              <span className="text-[10px] font-mono tracking-widest text-muted-foreground uppercase">
+              <span className="text-[10px] font-mono tracking-widest text-muted-foreground uppercase font-semibold">
                 AI Career Suite
               </span>
             </div>

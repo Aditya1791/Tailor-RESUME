@@ -42,6 +42,9 @@
     "dashboard": "Panel",
     "builder": "Constructor de CV",
     "tailor": "Personalizar CV",
+    "wizard": "Asistente",
+    "tracker": "Seguimiento",
+    "resumeWizard": "Asistente de CV",
     "settings": "Configuración",
     "backToDashboard": "Volver al Panel",
     "goToSettings": "Ir a Configuración",
@@ -411,9 +414,16 @@
       "accentColor": "Color de acento",
       "accentColors": {
         "blue": "Azul",
+        "indigo": "Índigo",
+        "purple": "Púrpura",
+        "teal": "Verde azulado",
+        "emerald": "Esmeralda",
         "green": "Verde",
+        "amber": "Ámbar",
         "orange": "Naranja",
-        "red": "Rojo"
+        "red": "Rojo",
+        "rose": "Rosa",
+        "slate": "Pizarra"
       },
       "pageSize": "Tamaño de página",
       "margins": "Márgenes (mm)",
@@ -454,14 +464,14 @@
     },
     "personalInfoForm": {
       "placeholders": {
-        "name": "Juan Pérez",
+        "name": "Aditya Ranjan Swain",
         "title": "Ingeniero de software",
-        "email": "juan@example.com",
-        "phone": "+34 600 000 000",
+        "email": "yourmail@gmail.com",
+        "phone": "+91 784688**05",
         "location": "Ciudad, País",
         "website": "portfolio.com",
-        "linkedin": "linkedin.com/in/juan",
-        "github": "github.com/juan"
+        "linkedin": "linkedin.com/in/aditya-ranjan-swain",
+        "github": "github.com/Aditya1791"
       }
     },
     "leftPanel": {

@@ -19,6 +19,11 @@ export const metadata: Metadata = {
   description: 'Build your resume with Resume Matcher',
   applicationName: 'Resume Matcher',
   keywords: ['resume', 'matcher', 'job', 'application'],
+  icons: {
+    icon: '/logo.svg',
+    shortcut: '/logo.svg',
+    apple: '/logo.svg',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

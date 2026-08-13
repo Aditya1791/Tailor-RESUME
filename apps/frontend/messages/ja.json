@@ -42,6 +42,9 @@
     "dashboard": "ダッシュボード",
     "builder": "履歴書ビルダー",
     "tailor": "履歴書をカスタマイズ",
+    "wizard": "ウィザード",
+    "tracker": "応募追跡",
+    "resumeWizard": "履歴書ウィザード",
     "settings": "設定",
     "backToDashboard": "ダッシュボードに戻る",
     "goToSettings": "設定へ",
@@ -411,9 +414,16 @@
       "accentColor": "アクセントカラー",
       "accentColors": {
         "blue": "青",
+        "indigo": "インディゴ",
+        "purple": "紫",
+        "teal": "ティール",
+        "emerald": "エメラルド",
         "green": "緑",
+        "amber": "アンバー",
         "orange": "オレンジ",
-        "red": "赤"
+        "red": "赤",
+        "rose": "ローズ",
+        "slate": "スレート"
       },
       "pageSize": "ページサイズ",
       "margins": "余白（mm）",
@@ -454,14 +464,14 @@
     },
     "personalInfoForm": {
       "placeholders": {
-        "name": "山田 太郎",
+        "name": "Aditya Ranjan Swain",
         "title": "ソフトウェアエンジニア",
-        "email": "taro@example.com",
-        "phone": "+81 90-0000-0000",
+        "email": "yourmail@gmail.com",
+        "phone": "+91 784688**05",
         "location": "都市、国",
         "website": "portfolio.com",
-        "linkedin": "linkedin.com/in/taro",
-        "github": "github.com/taro"
+        "linkedin": "linkedin.com/in/aditya-ranjan-swain",
+        "github": "github.com/Aditya1791"
       }
     },
     "leftPanel": {

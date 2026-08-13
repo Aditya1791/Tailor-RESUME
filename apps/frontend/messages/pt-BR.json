@@ -42,8 +42,11 @@
     "dashboard": "Painel",
     "builder": "Criar Currículo",
     "tailor": "Personalizar Currículo",
+    "wizard": "Assistente",
+    "tracker": "Rastreador",
+    "resumeWizard": "Assistente de Currículo",
     "settings": "Configurações",
-    "backToDashboard": "Voltar ao Painel",
+    "backToDashboard": "Volver ao Painel",
     "goToSettings": "Ir para Configurações",
     "applicationTracker": "Acompanhamento de candidaturas"
   },
@@ -408,9 +411,16 @@
       },
       "accentColors": {
         "blue": "Azul",
+        "indigo": "Índigo",
+        "purple": "Roxo",
+        "teal": "Verde-azulado",
+        "emerald": "Esmeralda",
         "green": "Verde",
+        "amber": "Âmbar",
         "orange": "Laranja",
-        "red": "Vermelho"
+        "red": "Vermelho",
+        "rose": "Rosa",
+        "slate": "Ardósia"
       },
       "fontNames": {
         "serif": "Serifada",
@@ -454,14 +464,14 @@
     },
     "personalInfoForm": {
       "placeholders": {
-        "name": "João Silva",
+        "name": "Aditya Ranjan Swain",
         "title": "Engenheiro de Software",
-        "email": "joao@exemplo.com",
-        "phone": "+55 (11) 99999-0000",
+        "email": "yourmail@gmail.com",
+        "phone": "+91 784688**05",
         "location": "São Paulo, Brasil",
         "website": "portfolio.com",
-        "linkedin": "linkedin.com/in/joao",
-        "github": "github.com/joao"
+        "linkedin": "linkedin.com/in/aditya-ranjan-swain",
+        "github": "github.com/Aditya1791"
       }
     },
     "leftPanel": {

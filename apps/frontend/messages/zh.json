@@ -42,6 +42,9 @@
     "dashboard": "仪表板",
     "builder": "简历生成器",
     "tailor": "定制简历",
+    "wizard": "向导",
+    "tracker": "追踪",
+    "resumeWizard": "简历向导",
     "settings": "设置",
     "backToDashboard": "返回仪表板",
     "goToSettings": "前往设置",
@@ -411,9 +414,16 @@
       "accentColor": "强调色",
       "accentColors": {
         "blue": "蓝色",
+        "indigo": "靛蓝",
+        "purple": "紫色",
+        "teal": "青色",
+        "emerald": "翡翠绿",
         "green": "绿色",
+        "amber": "琥珀色",
         "orange": "橙色",
-        "red": "红色"
+        "red": "红色",
+        "rose": "玫瑰红",
+        "slate": "板岩灰"
       },
       "pageSize": "纸张尺寸",
       "margins": "页边距（mm）",
@@ -454,14 +464,14 @@
     },
     "personalInfoForm": {
       "placeholders": {
-        "name": "张三",
+        "name": "Aditya Ranjan Swain",
         "title": "软件工程师",
-        "email": "zhangsan@example.com",
-        "phone": "+86 138 0000 0000",
+        "email": "yourmail@gmail.com",
+        "phone": "+91 784688**05",
         "location": "城市，国家",
         "website": "portfolio.com",
-        "linkedin": "linkedin.com/in/zhangsan",
-        "github": "github.com/zhangsan"
+        "linkedin": "linkedin.com/in/aditya-ranjan-swain",
+        "github": "github.com/Aditya1791"
       }
     },
     "leftPanel": {

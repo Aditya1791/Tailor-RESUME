@@ -680,22 +680,22 @@ export default function SettingsPage() {
     : t('settings.llmConfiguration.baseUrlDescription');
 
   return (
-    <div className="flex flex-col items-center justify-start p-6 md:p-12 min-h-screen overflow-y-auto">
-      <div className="w-full max-w-4xl border border-black bg-background shadow-sw-lg">
+    <div className="flex flex-col items-center justify-start p-6 md:p-12 min-h-screen overflow-y-auto bg-background">
+      <div className="w-full max-w-4xl border border-border bg-card shadow-xl rounded-xl overflow-hidden">
         {/* Header */}
-        <div className="border-b border-black p-8 bg-white flex justify-between items-start">
+        <div className="border-b border-border p-8 bg-card/60 backdrop-blur-xs flex justify-between items-start">
           <div>
-            <h1 className="font-serif text-3xl font-bold tracking-tight uppercase">
+            <h1 className="font-mono text-3xl font-bold tracking-tight uppercase text-foreground">
               {t('settings.title')}
             </h1>
-            <p className="font-mono text-xs text-steel-grey mt-2 uppercase tracking-wider">
+            <p className="font-mono text-xs text-muted-foreground mt-2 uppercase tracking-wider">
               {'// '}
               {t('settings.subtitle')}
             </p>
           </div>
           <Link href="/dashboard">
             <Button variant="outline" size="sm">
-              <ArrowLeft className="w-4 h-4" />
+              <ArrowLeft className="w-4 h-4 mr-1.5" />
               {t('common.back')}
             </Button>
           </Link>
@@ -704,14 +704,14 @@ export default function SettingsPage() {
         <div className="p-8 space-y-10">
           {/* API Key Not Configured Warning */}
           {!statusLoading && systemStatus && !systemStatus.llm_configured && (
-            <div className="border-2 border-amber-500 bg-amber-50 p-4 shadow-sw-default">
+            <div className="border-2 border-amber-500/40 bg-amber-500/10 p-4 rounded-lg shadow-xs">
               <div className="flex items-start gap-3">
-                <div className="w-3 h-3 bg-amber-500 mt-1 shrink-0"></div>
+                <div className="w-3 h-3 bg-amber-500 rounded-xs mt-1 shrink-0"></div>
                 <div className="flex-1">
-                  <p className="font-mono text-sm font-bold uppercase tracking-wider text-amber-800">
+                  <p className="font-mono text-sm font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300">
                     {t('settings.setupRequired.title')}
                   </p>
-                  <p className="font-mono text-xs text-amber-700 mt-1">
+                  <p className="font-mono text-xs text-amber-700 dark:text-amber-400 mt-1">
                     {t('settings.setupRequired.description')}
                   </p>
                 </div>
@@ -721,16 +721,16 @@ export default function SettingsPage() {
 
           {/* System Status Panel */}
           <section className="space-y-4">
-            <div className="flex items-center justify-between border-b border-black/10 pb-2">
+            <div className="flex items-center justify-between border-b border-border pb-2">
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-2">
-                  <Activity className="w-4 h-4" />
-                  <h2 className="font-mono text-sm font-bold uppercase tracking-wider">
+                  <Activity className="w-4 h-4 text-primary" />
+                  <h2 className="font-mono text-sm font-bold uppercase tracking-wider text-foreground">
                     {t('settings.systemStatus.title')}
                   </h2>
                 </div>
                 {lastFetched && (
-                  <span className="font-mono text-xs text-steel-grey flex items-center gap-1">
+                  <span className="font-mono text-xs text-muted-foreground flex items-center gap-1">
                     <Clock className="w-3 h-3" />
                     {formatLastFetched()}
                   </span>
@@ -741,7 +741,7 @@ export default function SettingsPage() {
                 size="sm"
                 onClick={refreshStatus}
                 disabled={statusLoading}
-                className="gap-1 text-xs"
+                className="gap-1 text-xs text-muted-foreground hover:text-foreground"
               >
                 <RefreshCw className={`w-3 h-3 ${statusLoading ? 'animate-spin' : ''}`} />
                 {t('settings.systemStatus.refresh')}
@@ -750,14 +750,14 @@ export default function SettingsPage() {
 
             {statusLoading ? (
               <div className="flex items-center justify-center p-8">
-                <Loader2 className="w-6 h-6 animate-spin text-steel-grey" />
+                <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
               </div>
             ) : !systemStatus ? (
-              <div className="flex flex-col items-center justify-center p-8 gap-3 border border-dashed border-red-300 bg-red-50">
-                <p className="font-mono text-xs text-red-600 uppercase">
+              <div className="flex flex-col items-center justify-center p-8 gap-3 border border-dashed border-destructive/30 bg-destructive/10 rounded-lg">
+                <p className="font-mono text-xs text-destructive uppercase">
                   {t('settings.systemStatus.unableToConnect')}
                 </p>
-                <p className="font-mono text-xs text-ink-soft">
+                <p className="font-mono text-xs text-muted-foreground">
                   {t('settings.systemStatus.expectedAt', { apiUrl: API_URL })}
                 </p>
                 <Button
@@ -777,20 +777,20 @@ export default function SettingsPage() {
               <div className="@container">
                 <div className="grid grid-cols-2 @3xl:grid-cols-4 gap-4">
                   {/* LLM Status */}
-                  <div className="border border-black bg-white p-4 shadow-sw-sm">
+                  <div className="border border-border bg-muted/40 p-4 rounded-lg shadow-xs hover:border-border/80 transition-colors">
                     <div className="flex items-center gap-2 mb-2">
-                      <Server className="w-4 h-4 text-steel-grey" />
-                      <span className="font-mono text-xs uppercase text-steel-grey">
+                      <Server className="w-4 h-4 text-muted-foreground" />
+                      <span className="font-mono text-xs uppercase text-muted-foreground">
                         {t('settings.statusCards.llm')}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
                       {systemStatus.llm_healthy ? (
-                        <CheckCircle2 className="w-5 h-5 text-green-600" />
+                        <CheckCircle2 className="w-5 h-5 text-emerald-500" />
                       ) : (
-                        <XCircle className="w-5 h-5 text-red-500" />
+                        <XCircle className="w-5 h-5 text-destructive" />
                       )}
-                      <span className="font-mono text-sm font-bold">
+                      <span className="font-mono text-sm font-bold text-foreground">
                         {systemStatus.llm_healthy
                           ? t('settings.statusValues.healthy')
                           : t('settings.statusValues.offline')}
@@ -799,43 +799,43 @@ export default function SettingsPage() {
                   </div>
 
                   {/* Database Status */}
-                  <div className="border border-black bg-white p-4 shadow-sw-sm">
+                  <div className="border border-border bg-muted/40 p-4 rounded-lg shadow-xs hover:border-border/80 transition-colors">
                     <div className="flex items-center gap-2 mb-2">
-                      <Database className="w-4 h-4 text-steel-grey" />
-                      <span className="font-mono text-xs uppercase text-steel-grey">
+                      <Database className="w-4 h-4 text-muted-foreground" />
+                      <span className="font-mono text-xs uppercase text-muted-foreground">
                         {t('settings.statusCards.database')}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-5 h-5 text-green-600" />
-                      <span className="font-mono text-sm font-bold">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                      <span className="font-mono text-sm font-bold text-foreground">
                         {t('settings.statusValues.connected')}
                       </span>
                     </div>
                   </div>
 
                   {/* Resumes Count */}
-                  <div className="border border-black bg-white p-4 shadow-sw-sm">
+                  <div className="border border-border bg-muted/40 p-4 rounded-lg shadow-xs hover:border-border/80 transition-colors">
                     <div className="flex items-center gap-2 mb-2">
-                      <FileText className="w-4 h-4 text-steel-grey" />
-                      <span className="font-mono text-xs uppercase text-steel-grey">
+                      <FileText className="w-4 h-4 text-muted-foreground" />
+                      <span className="font-mono text-xs uppercase text-muted-foreground">
                         {t('settings.statusCards.resumes')}
                       </span>
                     </div>
-                    <span className="font-mono text-2xl font-bold">
+                    <span className="font-mono text-2xl font-bold text-foreground">
                       {systemStatus.database_stats.total_resumes}
                     </span>
                   </div>
 
                   {/* Jobs Count */}
-                  <div className="border border-black bg-white p-4 shadow-sw-sm">
+                  <div className="border border-border bg-muted/40 p-4 rounded-lg shadow-xs hover:border-border/80 transition-colors">
                     <div className="flex items-center gap-2 mb-2">
-                      <Briefcase className="w-4 h-4 text-steel-grey" />
-                      <span className="font-mono text-xs uppercase text-steel-grey">
+                      <Briefcase className="w-4 h-4 text-muted-foreground" />
+                      <span className="font-mono text-xs uppercase text-muted-foreground">
                         {t('settings.statusCards.jobs')}
                       </span>
                     </div>
-                    <span className="font-mono text-2xl font-bold">
+                    <span className="font-mono text-2xl font-bold text-foreground">
                       {systemStatus.database_stats.total_jobs}
                     </span>
                   </div>
@@ -846,36 +846,36 @@ export default function SettingsPage() {
             {/* Additional Stats Row */}
             {systemStatus && (
               <div className="grid grid-cols-2 gap-4">
-                <div className="border border-black bg-white p-4 shadow-sw-sm">
+                <div className="border border-border bg-muted/40 p-4 rounded-lg shadow-xs hover:border-border/80 transition-colors">
                   <div className="flex items-center gap-2 mb-2">
-                    <Sparkles className="w-4 h-4 text-steel-grey" />
-                    <span className="font-mono text-xs uppercase text-steel-grey">
+                    <Sparkles className="w-4 h-4 text-muted-foreground" />
+                    <span className="font-mono text-xs uppercase text-muted-foreground">
                       {t('settings.statusCards.improvements')}
                     </span>
                   </div>
-                  <span className="font-mono text-2xl font-bold">
+                  <span className="font-mono text-2xl font-bold text-foreground">
                     {systemStatus.database_stats.total_improvements}
                   </span>
                 </div>
-                <div className="border border-black bg-white p-4 shadow-sw-sm">
+                <div className="border border-border bg-muted/40 p-4 rounded-lg shadow-xs hover:border-border/80 transition-colors">
                   <div className="flex items-center gap-2 mb-2">
-                    <FileText className="w-4 h-4 text-steel-grey" />
-                    <span className="font-mono text-xs uppercase text-steel-grey">
+                    <FileText className="w-4 h-4 text-muted-foreground" />
+                    <span className="font-mono text-xs uppercase text-muted-foreground">
                       {t('settings.statusCards.masterResume')}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
                     {systemStatus.has_master_resume ? (
                       <>
-                        <CheckCircle2 className="w-5 h-5 text-green-600" />
-                        <span className="font-mono text-sm font-bold">
+                        <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                        <span className="font-mono text-sm font-bold text-foreground">
                           {t('settings.statusValues.configured')}
                         </span>
                       </>
                     ) : (
                       <>
                         <XCircle className="w-5 h-5 text-amber-500" />
-                        <span className="font-mono text-sm font-bold">
+                        <span className="font-mono text-sm font-bold text-foreground">
                           {t('settings.statusValues.notSet')}
                         </span>
                       </>
@@ -888,9 +888,9 @@ export default function SettingsPage() {
 
           {/* LLM Configuration */}
           <section className="space-y-6">
-            <div className="flex items-center gap-2 border-b border-black/10 pb-2">
-              <Key className="w-4 h-4" />
-              <h2 className="font-mono text-sm font-bold uppercase tracking-wider">
+            <div className="flex items-center gap-2 border-b border-border pb-2">
+              <Key className="w-4 h-4 text-primary" />
+              <h2 className="font-mono text-sm font-bold uppercase tracking-wider text-foreground">
                 {t('settings.llmConfigurationTitle')}
               </h2>
             </div>
@@ -912,7 +912,7 @@ export default function SettingsPage() {
                     </button>
                   ))}
                 </div>
-                <p className="text-xs text-steel-grey font-mono">
+                <p className="text-xs text-muted-foreground font-mono">
                   {t('settings.llmConfiguration.selectedProvider', {
                     provider: providerInfo.name,
                   })}
@@ -929,24 +929,19 @@ export default function SettingsPage() {
                   placeholder={providerInfo.defaultModel}
                   className="font-mono"
                 />
-                <p className="text-xs text-steel-grey font-mono">
+                <p className="text-xs text-muted-foreground font-mono">
                   {t('settings.llmConfiguration.defaultModel', {
                     model: providerInfo.defaultModel,
                   })}
                 </p>
               </div>
 
-              {/* API Key Input — always enabled. For providers that don't
-                  require a key (Ollama, OpenAI-Compatible local servers), the
-                  field is marked optional so users can STILL enter a key if
-                  their deployment needs auth (e.g., a secured LM Studio or a
-                  hosted OpenAI-compatible proxy). Save-time validation only
-                  fails when `requiresApiKey` is true. */}
+              {/* API Key Input */}
               <div className="space-y-2">
                 <Label htmlFor="apiKey">
                   {t('settings.llmConfiguration.apiKeyLabel')}{' '}
                   {!requiresApiKey && (
-                    <span className="text-steel-grey">
+                    <span className="text-muted-foreground">
                       {t('settings.llmConfiguration.apiKeyOptional')}
                     </span>
                   )}
@@ -964,17 +959,16 @@ export default function SettingsPage() {
                   className="font-mono"
                 />
                 {hasStoredApiKey && !apiKey && (
-                  <p className="text-xs text-steel-grey font-mono">
+                  <p className="text-xs text-muted-foreground font-mono">
                     {t('settings.llmConfiguration.leaveBlankToKeepExistingKey')}
                   </p>
                 )}
               </div>
 
-              {/* Saved per-provider keys — each provider keeps its own encrypted
-                  key, so switching providers never wipes another's. */}
+              {/* Saved per-provider keys */}
               {apiKeyStatuses.some((s) => s.configured) && (
-                <div className="space-y-2 border border-black bg-paper-tint p-3 shadow-sw-xs">
-                  <p className="font-mono text-xs uppercase tracking-wide text-ink-soft">
+                <div className="space-y-2 border border-border bg-muted/30 p-3 rounded-lg shadow-xs">
+                  <p className="font-mono text-xs uppercase tracking-wide text-muted-foreground">
                     {t('settings.apiKeys.savedTitle')}
                   </p>
                   <ul className="space-y-1.5">
@@ -986,11 +980,11 @@ export default function SettingsPage() {
                           className="flex items-center justify-between gap-2 text-sm"
                         >
                           <span className="flex items-center gap-2">
-                            <CheckCircle2 className="h-3.5 w-3.5 text-success" />
-                            <span className="font-medium">
+                            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+                            <span className="font-medium text-foreground">
                               {API_KEY_PROVIDER_INFO[s.provider]?.name ?? s.provider}
                             </span>
-                            <span className="font-mono text-xs text-steel-grey">
+                            <span className="font-mono text-xs text-muted-foreground">
                               {s.masked_key}
                             </span>
                           </span>
@@ -1010,7 +1004,7 @@ export default function SettingsPage() {
                 </div>
               )}
 
-              {/* API Base URL (optional, for proxies/aggregators/custom endpoints) */}
+              {/* API Base URL */}
               <div className="space-y-2">
                 <Label htmlFor="apiBase">
                   {baseUrlLabel} {requiresApiBase && <span className="text-destructive">*</span>}
@@ -1022,10 +1016,10 @@ export default function SettingsPage() {
                   placeholder={baseUrlPlaceholder}
                   className="font-mono"
                 />
-                <p className="text-xs text-steel-grey font-mono">{baseUrlDescription}</p>
+                <p className="text-xs text-muted-foreground font-mono">{baseUrlDescription}</p>
               </div>
 
-              {/* Reasoning Effort (optional, only applies to reasoning-capable models) */}
+              {/* Reasoning Effort */}
               <div className="space-y-2">
                 <Dropdown
                   label={t('settings.llmConfiguration.reasoningEffortLabel')}
@@ -1043,7 +1037,7 @@ export default function SettingsPage() {
                     { id: 'high', label: t('settings.llmConfiguration.reasoningEffortHigh') },
                   ]}
                 />
-                <p className="text-xs text-steel-grey font-mono">
+                <p className="text-xs text-muted-foreground font-mono">
                   {t('settings.llmConfiguration.reasoningEffortDescription')}
                 </p>
               </div>
@@ -1059,12 +1053,12 @@ export default function SettingsPage() {
                     <Loader2 className="w-4 h-4 animate-spin" />
                   ) : status === 'saved' ? (
                     <>
-                      <CheckCircle2 className="w-4 h-4" />
+                      <CheckCircle2 className="w-4 h-4 mr-1.5" />
                       {t('common.success')}
                     </>
                   ) : (
                     <>
-                      <Save className="w-4 h-4" />
+                      <Save className="w-4 h-4 mr-1.5" />
                       {t('common.save')}
                     </>
                   )}
@@ -1078,7 +1072,7 @@ export default function SettingsPage() {
                     <Loader2 className="w-4 h-4 animate-spin" />
                   ) : (
                     <>
-                      <Activity className="w-4 h-4" />
+                      <Activity className="w-4 h-4 mr-1.5" />
                       {t('settings.llmConfiguration.testConnection')}
                     </>
                   )}
@@ -1087,8 +1081,8 @@ export default function SettingsPage() {
 
               {/* Error Message */}
               {error && (
-                <div className="border border-red-300 bg-red-50 p-3">
-                  <p className="text-xs text-red-600 font-mono break-words">
+                <div className="border border-destructive/30 bg-destructive/10 p-3 rounded-lg">
+                  <p className="text-xs text-destructive font-mono break-words">
                     {t('settings.llmConfiguration.errorPrefix', { error })}
                   </p>
                 </div>
@@ -1097,37 +1091,37 @@ export default function SettingsPage() {
               {/* Health Check Result */}
               {healthCheck && (
                 <div
-                  className={`border p-4 break-words ${
+                  className={`border p-4 break-words rounded-lg ${
                     healthCheck.healthy
-                      ? 'border-green-300 bg-green-50'
-                      : 'border-red-300 bg-red-50'
+                      ? 'border-emerald-500/30 bg-emerald-500/10'
+                      : 'border-destructive/30 bg-destructive/10'
                   }`}
                 >
                   <div className="flex items-center gap-2 mb-2">
                     {healthCheck.healthy ? (
-                      <CheckCircle2 className="w-5 h-5 text-green-600" />
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500" />
                     ) : (
-                      <XCircle className="w-5 h-5 text-red-500" />
+                      <XCircle className="w-5 h-5 text-destructive" />
                     )}
-                    <span className="font-mono text-sm font-bold">
+                    <span className="font-mono text-sm font-bold text-foreground">
                       {healthCheck.healthy
                         ? t('settings.llmConfiguration.connectionSuccessful')
                         : t('settings.llmConfiguration.connectionFailed')}
                     </span>
                   </div>
-                  <p className="font-mono text-xs text-ink-soft">
+                  <p className="font-mono text-xs text-muted-foreground">
                     {t('settings.llmConfiguration.connectionDetails', {
                       provider: healthCheck.provider,
                       model: healthCheck.model,
                     })}
                   </p>
                   {healthCheckError && (
-                    <p className="font-mono text-xs text-red-600 mt-1 break-words">
+                    <p className="font-mono text-xs text-destructive mt-1 break-words">
                       {healthCheckError}
                     </p>
                   )}
                   {healthCheckWarning && (
-                    <p className="font-mono text-xs text-amber-700 mt-1 break-words">
+                    <p className="font-mono text-xs text-amber-700 dark:text-amber-400 mt-1 break-words">
                       {healthCheckWarning}
                     </p>
                   )}
@@ -1136,19 +1130,19 @@ export default function SettingsPage() {
                       {healthDetailItems.map((item) =>
                         item.key === 'reasoningContent' ? (
                           <details key={item.key} className="group">
-                            <summary className="cursor-pointer font-mono text-[10px] uppercase tracking-wider text-ink-soft hover:text-black">
+                            <summary className="cursor-pointer font-mono text-[10px] uppercase tracking-wider text-muted-foreground hover:text-foreground">
                               {item.label}
                             </summary>
-                            <pre className="mt-1 whitespace-pre-wrap break-words rounded-none border border-black bg-white p-3 text-xs text-ink-soft shadow-sw-sm">
+                            <pre className="mt-1 whitespace-pre-wrap break-words rounded-md border border-border bg-background p-3 text-xs text-foreground font-mono">
                               {item.value}
                             </pre>
                           </details>
                         ) : (
                           <div key={item.key}>
-                            <p className="font-mono text-[10px] uppercase tracking-wider text-ink-soft">
+                            <p className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
                               {item.label}
                             </p>
-                            <pre className="mt-1 whitespace-pre-wrap break-words rounded-none border border-black bg-white p-3 text-xs text-ink-soft shadow-sw-sm">
+                            <pre className="mt-1 whitespace-pre-wrap break-words rounded-md border border-border bg-background p-3 text-xs text-foreground font-mono">
                               {item.value}
                             </pre>
                           </div>
@@ -1163,15 +1157,15 @@ export default function SettingsPage() {
 
           {/* Content Generation Section */}
           <section className="space-y-6">
-            <div className="flex items-center gap-2 border-b border-black/10 pb-2">
-              <Settings2 className="w-4 h-4" />
-              <h2 className="font-mono text-sm font-bold uppercase tracking-wider">
+            <div className="flex items-center gap-2 border-b border-border pb-2">
+              <Settings2 className="w-4 h-4 text-primary" />
+              <h2 className="font-mono text-sm font-bold uppercase tracking-wider text-foreground">
                 {t('settings.contentGeneration.title')}
               </h2>
             </div>
 
             <div className="space-y-2">
-              <p className="text-sm text-ink-soft mb-4">
+              <p className="text-sm text-muted-foreground mb-4">
                 {t('settings.contentGeneration.description')}
               </p>
 
@@ -1197,13 +1191,13 @@ export default function SettingsPage() {
                       value={coverLetterPrompt}
                       onChange={(e) => setCoverLetterPrompt(e.target.value)}
                       placeholder={coverLetterDefault}
-                      className="w-full rounded-none border border-black bg-white p-3 font-mono text-xs break-words focus:outline-none focus:shadow-[4px_4px_0_0_#000]"
+                      className="w-full rounded-md border border-border bg-background p-3 font-mono text-xs text-foreground placeholder:text-muted-foreground break-words focus:outline-none focus:ring-1 focus:ring-primary shadow-xs"
                     />
-                    <p className="text-xs text-steel-grey font-mono">
+                    <p className="text-xs text-muted-foreground font-mono">
                       {t('settings.contentGeneration.customPromptHelp')}
                     </p>
                     {featurePromptError?.field === 'cover_letter_prompt' && (
-                      <p className="text-xs text-red-600 font-mono break-words">
+                      <p className="text-xs text-destructive font-mono break-words">
                         {t('settings.contentGeneration.customPromptErrorMissing', {
                           missing: featurePromptError.missing.join(', '),
                         })}
@@ -1254,13 +1248,13 @@ export default function SettingsPage() {
                       value={outreachPrompt}
                       onChange={(e) => setOutreachPrompt(e.target.value)}
                       placeholder={outreachDefault}
-                      className="w-full rounded-none border border-black bg-white p-3 font-mono text-xs break-words focus:outline-none focus:shadow-[4px_4px_0_0_#000]"
+                      className="w-full rounded-md border border-border bg-background p-3 font-mono text-xs text-foreground placeholder:text-muted-foreground break-words focus:outline-none focus:ring-1 focus:ring-primary shadow-xs"
                     />
-                    <p className="text-xs text-steel-grey font-mono">
+                    <p className="text-xs text-muted-foreground font-mono">
                       {t('settings.contentGeneration.customPromptHelp')}
                     </p>
                     {featurePromptError?.field === 'outreach_message_prompt' && (
-                      <p className="text-xs text-red-600 font-mono break-words">
+                      <p className="text-xs text-destructive font-mono break-words">
                         {t('settings.contentGeneration.customPromptErrorMissing', {
                           missing: featurePromptError.missing.join(', '),
                         })}
@@ -1302,7 +1296,7 @@ export default function SettingsPage() {
                 />
               </div>
 
-              <div className="pt-4 border-t border-paper-tint">
+              <div className="pt-4 border-t border-border">
                 <Dropdown
                   options={localizedPromptOptions}
                   value={defaultPromptId}
@@ -1317,9 +1311,9 @@ export default function SettingsPage() {
 
           {/* Language Settings Section */}
           <section className="space-y-6">
-            <div className="flex items-center gap-2 border-b border-black/10 pb-2">
-              <Globe className="w-4 h-4" />
-              <h2 className="font-mono text-sm font-bold uppercase tracking-wider">
+            <div className="flex items-center gap-2 border-b border-border pb-2">
+              <Globe className="w-4 h-4 text-primary" />
+              <h2 className="font-mono text-sm font-bold uppercase tracking-wider text-foreground">
                 {t('settings.uiLanguage')} & {t('settings.contentLanguage')}
               </h2>
             </div>
@@ -1327,10 +1321,10 @@ export default function SettingsPage() {
             {/* UI Language */}
             <div className="space-y-4">
               <div>
-                <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-ink-soft mb-2">
+                <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-foreground mb-2">
                   {t('settings.uiLanguage')}
                 </h3>
-                <p className="text-sm text-ink-soft mb-3">{t('settings.uiLanguageDescription')}</p>
+                <p className="text-sm text-muted-foreground mb-3">{t('settings.uiLanguageDescription')}</p>
               </div>
 
               <div className="space-y-2">
@@ -1350,12 +1344,12 @@ export default function SettingsPage() {
             </div>
 
             {/* Content Language */}
-            <div className="space-y-4 pt-4 border-t border-paper-tint">
+            <div className="space-y-4 pt-4 border-t border-border">
               <div>
-                <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-ink-soft mb-2">
+                <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-foreground mb-2">
                   {t('settings.contentLanguage')}
                 </h3>
-                <p className="text-sm text-ink-soft mb-3">
+                <p className="text-sm text-muted-foreground mb-3">
                   {t('settings.contentLanguageDescription')}
                 </p>
               </div>
@@ -1379,25 +1373,25 @@ export default function SettingsPage() {
 
           {/* Danger Zone */}
           <section className="space-y-6">
-            <div className="flex items-center gap-2 border-b border-red-200 pb-2">
-              <AlertTriangle className="w-4 h-4 text-red-600" />
-              <h2 className="font-mono text-sm font-bold uppercase tracking-wider text-red-600">
+            <div className="flex items-center gap-2 border-b border-destructive/30 pb-2">
+              <AlertTriangle className="w-4 h-4 text-destructive" />
+              <h2 className="font-mono text-sm font-bold uppercase tracking-wider text-destructive">
                 {t('settings.dangerZone')}
               </h2>
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {/* Clear API Keys */}
-              <div className="border border-red-200 bg-red-50/50 p-6 space-y-4">
+              <div className="border border-destructive/20 bg-destructive/5 rounded-lg p-6 space-y-4">
                 <div>
-                  <h3 className="font-bold text-sm text-red-900 mb-1">
+                  <h3 className="font-bold text-sm text-destructive mb-1">
                     {t('settings.clearApiKeys')}
                   </h3>
-                  <p className="text-xs text-red-700">{t('settings.clearApiKeysDescription')}</p>
+                  <p className="text-xs text-muted-foreground">{t('settings.clearApiKeysDescription')}</p>
                 </div>
                 <Button
                   variant="outline"
-                  className="w-full border-red-200 text-red-700 hover:bg-red-50 hover:text-red-800 hover:border-red-300"
+                  className="w-full border-destructive/30 text-destructive hover:bg-destructive/10"
                   onClick={() => setShowClearApiKeysDialog(true)}
                   disabled={isResetting}
                 >
@@ -1407,12 +1401,12 @@ export default function SettingsPage() {
               </div>
 
               {/* Reset Database */}
-              <div className="border border-red-200 bg-red-50/50 p-6 space-y-4">
+              <div className="border border-destructive/20 bg-destructive/5 rounded-lg p-6 space-y-4">
                 <div>
-                  <h3 className="font-bold text-sm text-red-900 mb-1">
+                  <h3 className="font-bold text-sm text-destructive mb-1">
                     {t('settings.resetDatabase')}
                   </h3>
-                  <p className="text-xs text-red-700">{t('settings.resetDatabaseDescription')}</p>
+                  <p className="text-xs text-muted-foreground">{t('settings.resetDatabaseDescription')}</p>
                 </div>
                 <Button
                   variant="destructive"
@@ -1429,34 +1423,34 @@ export default function SettingsPage() {
         </div>
 
         {/* Footer */}
-        <div className="bg-secondary p-4 border-t border-black flex justify-between items-center">
-          <div className="flex items-center gap-2">
+        <div className="bg-muted/40 p-4 border-t border-border flex justify-between items-center">
+          <div className="flex items-center gap-2.5">
             <Image
               src="/logo.svg"
               alt="Resume Matcher"
-              width={20}
-              height={20}
-              className="w-5 h-5"
+              width={22}
+              height={22}
+              className="w-5 h-5 rounded-sm"
             />
-            <span className="font-mono text-xs text-steel-grey">
+            <span className="font-mono text-xs text-muted-foreground font-semibold">
               {getVersionString().toUpperCase()}
             </span>
           </div>
           <div className="flex items-center gap-2">
             {statusLoading ? (
               <>
-                <Loader2 className="w-3 h-3 animate-spin text-steel-grey" />
-                <span className="font-mono text-xs text-steel-grey">
+                <Loader2 className="w-3 h-3 animate-spin text-muted-foreground" />
+                <span className="font-mono text-xs text-muted-foreground">
                   {t('settings.footer.status.checking')}
                 </span>
               </>
             ) : systemStatus ? (
               <>
                 <div
-                  className={`w-3 h-3 ${systemStatus.status === 'ready' ? 'bg-green-700' : 'bg-amber-500'}`}
+                  className={`w-2.5 h-2.5 rounded-full ${systemStatus.status === 'ready' ? 'bg-emerald-500' : 'bg-amber-500'}`}
                 ></div>
                 <span
-                  className={`font-mono text-xs font-bold ${systemStatus.status === 'ready' ? 'text-green-700' : 'text-amber-600'}`}
+                  className={`font-mono text-xs font-bold ${systemStatus.status === 'ready' ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}
                 >
                   {systemStatus.status === 'ready'
                     ? t('settings.footer.status.ready')
@@ -1464,7 +1458,7 @@ export default function SettingsPage() {
                 </span>
               </>
             ) : (
-              <span className="font-mono text-xs text-steel-grey">
+              <span className="font-mono text-xs text-muted-foreground">
                 {t('settings.footer.status.offline')}
               </span>
             )}
